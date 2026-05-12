@@ -10,12 +10,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
-      --bg-deep: #08080b;
-      --text: #dddde4;
-      --text-muted: #666673;
+      --bg-deep: #050508;
+      --bg-card: #0d0d14;
+      --border: #1a1a26;
+      --text: #e0e0e8;
+      --text-secondary: #8a8a9a;
+      --text-muted: #5a5a6e;
       --accent-gold: #d4a968;
       --accent-blue: #5b9bd5;
+      --accent-purple: #a090c8;
       --font: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+      --radius: 16px;
+      --radius-lg: 22px;
     }
 
     * {
@@ -54,176 +61,241 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 40px;
-    }
-
-    .logo-area {
-      text-align: center;
-    }
-
-    .logo-icon {
-      font-size: 60px;
-      margin-bottom: 16px;
-      display: block;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      color: #eeeef3;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    .subtitle {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-top: 8px;
-      letter-spacing: 0.04em;
-    }
-
-    .cards {
-      display: flex;
       gap: 28px;
     }
 
-    .entry-card {
-      width: 320px;
-      padding: 40px 32px;
-      border-radius: 16px;
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .screen.active {
+      display: flex;
+    }
+
+    .logo {
       text-align: center;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .entry-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      border-radius: 16px;
-    }
-
-    .card-player {
-      background: #121216;
-      border: 1px solid #1f1f26;
-    }
-    .card-player::before {
-      background: radial-gradient(circle at center, rgba(212, 169, 104, 0.08) 0%, transparent 70%);
-    }
-    .card-player:hover {
-      border-color: rgba(212, 169, 104, 0.4);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(212, 169, 104, 0.1);
-    }
-    .card-player:hover::before {
-      opacity: 1;
-    }
-
-    .card-staff {
-      background: #0d1117;
-      border: 1px solid #1a2435;
-    }
-    .card-staff::before {
-      background: radial-gradient(circle at center, rgba(91, 155, 213, 0.08) 0%, transparent 70%);
-    }
-    .card-staff:hover {
-      border-color: rgba(91, 155, 213, 0.4);
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(91, 155, 213, 0.1);
-    }
-    .card-staff:hover::before {
-      opacity: 1;
-    }
-
-    .entry-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-      display: block;
-      position: relative;
-      z-index: 1;
-    }
-    .card-player .entry-icon {
-      color: #d4a968;
-    }
-    .card-staff .entry-icon {
-      color: #5b9bd5;
-    }
-
-    .entry-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
-    .card-player .entry-title {
-      color: #e8d5b0;
-    }
-    .card-staff .entry-title {
-      color: #b0cfe8;
-    }
-
-    .entry-desc {
-      font-size: 13px;
-      color: #6b7a90;
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-    }
-
-    .entry-arrow {
-      display: inline-flex;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-      transition: gap 0.3s ease;
     }
-    .card-player .entry-arrow {
-      color: #d4a968;
+    .logo-symbol {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #1a1a28, #12121e);
+      border: 1px solid #252536;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      animation: float 3s ease-in-out infinite;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
-    .card-staff .entry-arrow {
-      color: #5b9bd5;
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
-    .entry-card:hover .entry-arrow {
-      gap: 12px;
+    .logo-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #ececf4;
+      letter-spacing: -0.02em;
+    }
+    .logo-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .footer-text {
+    .login-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      width: 380px;
+      max-width: 90vw;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .field-label {
       font-size: 12px;
-      color: #4a5568;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .field-input {
+      width: 100%;
+      background: #08080f;
+      border: 1px solid #1c1c2a;
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-size: 15px;
+      font-family: var(--font);
+      color: #e0e0e8;
+      outline: none;
+      transition: all 0.3s ease;
+      letter-spacing: 0.03em;
+    }
+    .field-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.08);
+    }
+    .field-input::placeholder {
+      color: #3a3a4a;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+    .btn-primary {
+      background: #3a5f8a;
+      color: #e0e8f4;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: #4a7aaa;
+      box-shadow: 0 6px 20px rgba(91, 155, 213, 0.2);
+    }
+    .btn-primary:disabled {
+      background: #1a2a3a;
+      color: #4a5a6a;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .msg {
+      font-size: 12px;
+      text-align: center;
+      min-height: 16px;
+    }
+    .msg-error { color: #dc6e82; }
+    .msg-info { color: #5a9a8a; }
+
+    .result-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      width: 420px;
+      max-width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+    }
+    .result-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+    .avatar-player { background: rgba(212, 169, 104, 0.1); border: 1px solid rgba(212, 169, 104, 0.25); }
+    .avatar-staff { background: rgba(91, 155, 213, 0.1); border: 1px solid rgba(91, 155, 213, 0.25); }
+    .avatar-both { background: rgba(160, 144, 200, 0.1); border: 1px solid rgba(160, 144, 200, 0.25); }
+
+    .result-name { font-size: 20px; font-weight: 700; }
+    .result-role {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
       letter-spacing: 0.04em;
     }
+    .role-player { background: rgba(212, 169, 104, 0.1); color: #d4a968; }
+    .role-staff { background: rgba(91, 155, 213, 0.1); color: #5b9bd5; }
+    .role-both { background: rgba(160, 144, 200, 0.1); color: #a090c8; }
 
-    @media (max-width: 750px) {
-      .cards {
-        flex-direction: column;
-        gap: 16px;
-      }
-      .entry-card {
-        width: 280px;
-        padding: 30px 24px;
-      }
-      .title {
-        font-size: 30px;
-      }
+    .result-info { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    .link-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .link-btn {
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      border: 1px solid;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 120px;
+    }
+    .link-btn .icon { font-size: 22px; }
+    .btn-player {
+      background: rgba(212, 169, 104, 0.04);
+      border-color: rgba(212, 169, 104, 0.2);
+      color: #d4a968;
+    }
+    .btn-player:hover {
+      background: rgba(212, 169, 104, 0.1);
+      border-color: rgba(212, 169, 104, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 169, 104, 0.08);
+    }
+    .btn-staff {
+      background: rgba(91, 155, 213, 0.04);
+      border-color: rgba(91, 155, 213, 0.2);
+      color: #5b9bd5;
+    }
+    .btn-staff:hover {
+      background: rgba(91, 155, 213, 0.1);
+      border-color: rgba(91, 155, 213, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(91, 155, 213, 0.08);
+    }
+
+    .back-link {
+      font-size: 12px;
+      color: #4a4a5e;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      background: none;
+      border: none;
+      font-family: var(--font);
+    }
+    .back-link:hover { color: #8a8a9a; }
+
+    .footer-text {
+      font-size: 11px;
+      color: #3a3a4e;
+      letter-spacing: 0.06em;
     }
   </style>
 </head>
@@ -232,152 +304,287 @@
   <canvas id="particles-canvas"></canvas>
 
   <div class="container">
-    <div class="logo-area">
-      <span class="logo-icon">🏛️</span>
-      <div class="title">β书院 · 追逐游戏</div>
-      <div class="subtitle">BETA COLLEGE · CHASE GAME</div>
+
+    <!-- 登录页 -->
+    <div id="screen-login" class="screen active">
+      <div class="logo">
+        <div class="logo-symbol">🏛️</div>
+        <div class="logo-title">β书院 · 追逐游戏</div>
+        <div class="logo-sub">Beta College Chase Game</div>
+      </div>
+
+      <div class="login-box">
+        <div class="field">
+          <label class="field-label">身份验证</label>
+          <input type="text" class="field-input" id="nameInput" placeholder="请输入您的姓名..." autocomplete="off">
+        </div>
+        <div class="msg msg-info" id="statusMsg">正在加载名单...</div>
+        <div class="msg msg-error" id="errorMsg"></div>
+        <button class="btn btn-primary" id="loginBtn" onclick="handleLogin()" disabled>
+          确认身份 <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="footer-text">β书院 · 2026</div>
     </div>
 
-    <div class="cards">
-      <a href="player-guide.html" class="entry-card card-player">
-        <span class="entry-icon">🎮</span>
-        <div class="entry-title">玩家入口</div>
-        <div class="entry-desc">查看游戏规则、积分制度<br>技能说明与流程指引</div>
-        <span class="entry-arrow">进入手册 <i class="fas fa-arrow-right"></i></span>
-      </a>
+    <!-- 结果页 -->
+    <div id="screen-result" class="screen">
+      <div class="logo">
+        <div class="logo-symbol" id="resultEmoji">🏛️</div>
+        <div class="logo-title" id="resultName">---</div>
+        <div id="resultBadge"></div>
+      </div>
 
-      <a href="staff-guide.html" class="entry-card card-staff">
-        <span class="entry-icon">🛡️</span>
-        <div class="entry-title">工作人员入口</div>
-        <div class="entry-desc">查看执行规范、职责分工<br>操作流程与群聊规范</div>
-        <span class="entry-arrow">进入手册 <i class="fas fa-arrow-right"></i></span>
-      </a>
+      <div class="result-box">
+        <div class="result-avatar" id="resultAvatar">
+          <span id="resultIcon">🎮</span>
+        </div>
+        <div class="result-name" id="resultTitle">---</div>
+        <div class="result-info" id="resultInfo"></div>
+        <div class="link-buttons" id="linkButtons"></div>
+        <button class="back-link" onclick="goBack()">← 返回重新登录</button>
+      </div>
+
+      <div class="footer-text">β书院 · 2026</div>
     </div>
 
-    <div class="footer-text">β书院 · 2026</div>
   </div>
 
   <script>
-    (function() {
-      const canvas = document.getElementById('particles-canvas');
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      let particles = [];
-      const count = 100;
-      const maxDist = 120;
-      let mouseX = -1000;
-      let mouseY = -1000;
-      let targetMouseX = -1000;
-      let targetMouseY = -1000;
+    // ==================== 名单 ====================
+    let playerList = [];
+    let staffList = [];
+    let loaded = false;
 
-      function resize() {
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width = w;
-        canvas.height = h;
-      }
-
-      class Particle {
-        constructor() {
-          this.reset();
+    async function loadLists() {
+      const status = document.getElementById('statusMsg');
+      const btn = document.getElementById('loginBtn');
+    
+      try {
+        const [pr, sr] = await Promise.all([
+          fetch('player-list.txt'),
+          fetch('staff-list.txt')
+        ]);
+      
+        if (!pr.ok) {
+          throw new Error(`player-list.txt 加载失败 (状态码: ${pr.status})`);
         }
-        reset() {
+        if (!sr.ok) {
+          throw new Error(`staff-list.txt 加载失败 (状态码: ${sr.status})`);
+        }
+      
+        const pText = await pr.text();
+        const sText = await sr.text();
+      
+        playerList = pText.split('\n').map(s => s.trim()).filter(Boolean);
+        staffList = sText.split('\n').map(s => s.trim()).filter(Boolean);
+      
+        loaded = true;
+        btn.disabled = false;
+        status.textContent = `✅ 玩家 ${playerList.length} 人 · 工作人员 ${staffList.length} 人`;
+        status.className = 'msg msg-info';
+        console.log('玩家名单:', playerList);
+        console.log('工作人员名单:', staffList);
+      } catch (e) {
+        status.textContent = '❌ ' + e.message;
+        status.className = 'msg msg-error';
+        console.error('名单加载失败:', e);
+      }
+    }
+
+    function checkIdentity(name) {
+      const p = playerList.includes(name);
+      const s = staffList.includes(name);
+      if (p && s) return 'both';
+      if (p) return 'player';
+      if (s) return 'staff';
+      return null;
+    }
+
+    function handleLogin() {
+      const input = document.getElementById('nameInput');
+      const error = document.getElementById('errorMsg');
+      const name = input.value.trim();
+
+      if (!loaded) { error.textContent = '名单尚未加载完成'; return; }
+      if (!name) { error.textContent = '请输入姓名'; return; }
+
+      const id = checkIdentity(name);
+      if (!id) { error.textContent = '姓名不在名单中'; return; }
+
+      error.textContent = '';
+      showResult(name, id);
+    }
+
+    function showResult(name, identity) {
+      document.getElementById('screen-login').classList.remove('active');
+      document.getElementById('screen-result').classList.add('active');
+
+      document.getElementById('resultName').textContent = name;
+      const emoji = document.getElementById('resultEmoji');
+      const avatar = document.getElementById('resultAvatar');
+      const icon = document.getElementById('resultIcon');
+      const title = document.getElementById('resultTitle');
+      const info = document.getElementById('resultInfo');
+      const badge = document.getElementById('resultBadge');
+      const buttons = document.getElementById('linkButtons');
+
+      if (identity === 'player') {
+        emoji.textContent = '🎮';
+        avatar.className = 'result-avatar avatar-player';
+        icon.textContent = '🎮';
+        title.textContent = '玩家';
+        info.textContent = '欢迎参与β书院追逐游戏';
+        badge.innerHTML = '<span class="result-role role-player">PLAYER</span>';
+        buttons.innerHTML = `
+          <div class="link-btn btn-player" onclick="goTo('player-guide.html')">
+            <span class="icon">📖</span> 进入玩家手册
+          </div>`;
+      } else if (identity === 'staff') {
+        emoji.textContent = '🛡️';
+        avatar.className = 'result-avatar avatar-staff';
+        icon.textContent = '🛡️';
+        title.textContent = '工作人员';
+        info.textContent = '请查阅Staff执行规范';
+        badge.innerHTML = '<span class="result-role role-staff">STAFF</span>';
+        buttons.innerHTML = `
+          <div class="link-btn btn-staff" onclick="goTo('staff-guide.html')">
+            <span class="icon">📋</span> 进入员工手册
+          </div>`;
+      } else {
+        emoji.textContent = '🌟';
+        avatar.className = 'result-avatar avatar-both';
+        icon.textContent = '🌟';
+        title.textContent = '双重身份';
+        info.textContent = '您同时是玩家和工作人员，请选择手册';
+        badge.innerHTML = '<span class="result-role role-both">PLAYER + STAFF</span>';
+        buttons.innerHTML = `
+          <div class="link-btn btn-player" onclick="goTo('player-guide.html')">
+            <span class="icon">📖</span> 玩家手册
+          </div>
+          <div class="link-btn btn-staff" onclick="goTo('staff-guide.html')">
+            <span class="icon">📋</span> 员工手册
+          </div>`;
+      }
+    }
+
+    function goTo(url) {
+      window.location.href = url;
+    }
+
+    function goBack() {
+      document.getElementById('screen-result').classList.remove('active');
+      document.getElementById('screen-login').classList.add('active');
+      document.getElementById('nameInput').value = '';
+      document.getElementById('errorMsg').textContent = '';
+    }
+
+    document.getElementById('nameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleLogin();
+    });
+
+    loadLists();
+
+    // ==================== 粒子 ====================
+    (function() {
+      const c = document.getElementById('particles-canvas');
+      const ctx = c.getContext('2d');
+      let w, h, ps = [],
+        mx = -1000,
+        my = -1000,
+        tx = -1000,
+        ty = -1000;
+      const n = 100,
+        d = 120;
+
+      function rs() { w = innerWidth;
+        h = innerHeight;
+        c.width = w;
+        c.height = h; }
+
+      class P {
+        constructor() { this.rst(); }
+        rst() {
           this.x = Math.random() * w;
           this.y = Math.random() * h;
           this.vx = (Math.random() - 0.5) * 0.4;
           this.vy = (Math.random() - 0.5) * 0.4;
-          this.r = Math.random() * 1.5 + 0.5;
-          this.baseR = this.r;
-          this.color = Math.random() > 0.5 ? 'rgba(212,169,104,' : 'rgba(91,155,213,';
+          this.r = Math.random() * 1.4 + 0.5;
+          this.br = this.r;
+          this.cl = Math.random() > 0.5 ? 'rgba(212,169,104,' : 'rgba(91,155,213,';
         }
-        update() {
-          const dx = this.x - mouseX;
-          const dy = this.y - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const mouseRadius = 160;
-
-          if (dist < mouseRadius) {
-            const force = (mouseRadius - dist) / mouseRadius;
-            const angle = Math.atan2(dy, dx);
-            this.x += Math.cos(angle) * force * 1.5;
-            this.y += Math.sin(angle) * force * 1.5;
-            this.r = this.baseR + force * 2;
-          } else {
-            this.r += (this.baseR - this.r) * 0.08;
-          }
-
+        up() {
+          const dx = this.x - mx,
+            dy = this.y - my,
+            ds = Math.sqrt(dx * dx + dy * dy),
+            rd = 150;
+          if (ds < rd) {
+            const f = (rd - ds) / rd,
+              a = Math.atan2(dy, dx);
+            this.x += Math.cos(a) * f * 1.4;
+            this.y += Math.sin(a) * f * 1.4;
+            this.r = this.br + f * 1.8;
+          } else this.r += (this.br - this.r) * 0.08;
           this.x += this.vx;
           this.y += this.vy;
-
           if (this.x < -20) this.x = w + 20;
           if (this.x > w + 20) this.x = -20;
           if (this.y < -20) this.y = h + 20;
           if (this.y > h + 20) this.y = -20;
         }
-        draw(ctx) {
-          ctx.beginPath();
+        dr() { ctx.beginPath();
           ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = this.color + '0.45)';
-          ctx.fill();
-        }
+          ctx.fillStyle = this.cl + '0.4)';
+          ctx.fill(); }
       }
 
-      function init() {
-        particles = [];
-        for (let i = 0; i < count; i++) particles.push(new Particle());
-      }
+      function init() { ps = [];
+        for (let i = 0; i < n; i++) ps.push(new P()); }
 
-      function drawLines() {
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < maxDist) {
-              const alpha = (1 - dist / maxDist) * 0.18;
+      function lines() {
+        for (let i = 0; i < ps.length; i++)
+          for (let j = i + 1; j < ps.length; j++) {
+            const dx = ps[i].x - ps[j].x,
+              dy = ps[i].y - ps[j].y,
+              ds = Math.sqrt(dx * dx + dy * dy);
+            if (ds < d) {
               ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(150,150,170,${alpha})`;
-              ctx.lineWidth = 0.35;
+              ctx.moveTo(ps[i].x, ps[i].y);
+              ctx.lineTo(ps[j].x, ps[j].y);
+              ctx.strokeStyle = `rgba(140,140,160,${(1-ds/d)*0.16})`;
+              ctx.lineWidth = 0.3;
               ctx.stroke();
             }
           }
-        }
-
-        if (mouseX > 0 && mouseY > 0) {
-          ctx.beginPath();
-          ctx.arc(mouseX, mouseY, 60, 0, Math.PI * 2);
-          const glow = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 60);
-          glow.addColorStop(0, 'rgba(180,160,200,0.08)');
-          glow.addColorStop(1, 'rgba(180,160,200,0)');
-          ctx.fillStyle = glow;
-          ctx.fill();
-        }
       }
 
-      function animate() {
-        ctx.clearRect(0, 0, w, h);
-        mouseX += (targetMouseX - mouseX) * 0.06;
-        mouseY += (targetMouseY - mouseY) * 0.06;
-        particles.forEach(p => { p.update(); p.draw(ctx); });
-        drawLines();
-        requestAnimationFrame(animate);
+      function glow() {
+        if (mx > 0) { ctx.beginPath();
+          ctx.arc(mx, my, 55, 0, Math.PI * 2); const g = ctx.createRadialGradient(mx, my, 0, mx, my, 55);
+          g.addColorStop(0, 'rgba(160,150,190,0.06)');
+          g.addColorStop(1, 'rgba(160,150,190,0)');
+          ctx.fillStyle = g;
+          ctx.fill(); }
       }
 
-      window.addEventListener('resize', () => { resize(); init(); });
-      window.addEventListener('mousemove', (e) => {
-        targetMouseX = e.clientX;
-        targetMouseY = e.clientY;
-      });
-      window.addEventListener('mouseleave', () => {
-        targetMouseX = -1000;
-        targetMouseY = -1000;
-      });
-
-      resize();
+      function anim() { ctx.clearRect(0, 0, w, h);
+        mx += (tx - mx) * 0.06;
+        my += (ty - my) * 0.06;
+        ps.forEach(p => { p.up();
+          p.dr(); });
+        lines();
+        glow();
+        requestAnimationFrame(anim); }
+      window.addEventListener('resize', () => { rs();
+        init(); });
+      window.addEventListener('mousemove', e => { tx = e.clientX;
+        ty = e.clientY; });
+      window.addEventListener('mouseleave', () => { tx = -1000;
+        ty = -1000; });
+      rs();
       init();
-      animate();
+      anim();
     })();
   </script>
 </body>
