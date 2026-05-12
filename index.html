@@ -360,36 +360,26 @@
     async function loadLists() {
       const status = document.getElementById('statusMsg');
       const btn = document.getElementById('loginBtn');
-    
+
       try {
         const [pr, sr] = await Promise.all([
           fetch('player-list.txt'),
           fetch('staff-list.txt')
         ]);
-      
-        if (!pr.ok) {
-          throw new Error(`player-list.txt 加载失败 (状态码: ${pr.status})`);
+
+        if (!pr.ok || !sr.ok) {
+          throw new Error('名单文件加载失败');
         }
-        if (!sr.ok) {
-          throw new Error(`staff-list.txt 加载失败 (状态码: ${sr.status})`);
-        }
-      
-        const pText = await pr.text();
-        const sText = await sr.text();
-      
-        playerList = pText.split('\n').map(s => s.trim()).filter(Boolean);
-        staffList = sText.split('\n').map(s => s.trim()).filter(Boolean);
-      
+
+        playerList = (await pr.text()).split('\n').map(s => s.trim()).filter(Boolean);
+        staffList = (await sr.text()).split('\n').map(s => s.trim()).filter(Boolean);
+
         loaded = true;
         btn.disabled = false;
-        status.textContent = `✅ 玩家 ${playerList.length} 人 · 工作人员 ${staffList.length} 人`;
-        status.className = 'msg msg-info';
-        console.log('玩家名单:', playerList);
-        console.log('工作人员名单:', staffList);
+        status.textContent = `已加载 ${playerList.length} 位玩家 · ${staffList.length} 位工作人员`;
       } catch (e) {
-        status.textContent = '❌ ' + e.message;
-        status.className = 'msg msg-error';
-        console.error('名单加载失败:', e);
+        status.textContent = '名单加载失败，请检查 player-list.txt 和 staff-list.txt';
+        console.error(e);
       }
     }
 
