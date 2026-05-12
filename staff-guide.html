@@ -6,26 +6,27 @@
   <title>Staff执行规范 · 内部手册</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
-      --bg-deep: #06080d;
-      --bg-card: #0d1117;
-      --bg-card-alt: #111820;
-      --border: #1a2435;
-      --border-hover: #253245;
-      --text: #dde1e8;
-      --text-secondary: #8b97a8;
-      --text-muted: #5a6578;
+      --bg-deep: #050508;
+      --bg-card: #0d0d14;
+      --bg-card-alt: #0f0f18;
+      --border: #1a1a26;
+      --border-hover: #252536;
+      --text: #e0e0e8;
+      --text-secondary: #8a8a9a;
+      --text-muted: #5a5a6e;
       --accent: #5b9bd5;
-      --accent-soft: rgba(91, 155, 213, 0.08);
-      --accent-border: rgba(91, 155, 213, 0.2);
-      --tag-bg: rgba(91, 155, 213, 0.08);
+      --accent-soft: rgba(91,155,213,0.08);
+      --accent-border: rgba(91,155,213,0.2);
+      --tag-bg: rgba(91,155,213,0.08);
       --tag-text: #6aa8e0;
-      --radius-sm: 4px;
-      --radius: 10px;
-      --font: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 6px;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --font: 'Noto Sans SC','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     }
 
     * {
@@ -39,14 +40,11 @@
       font-family: var(--font);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      position: relative;
-      overflow-x: auto;
-      min-width: 900px;
+      letter-spacing: 0.01em;
     }
 
     #particles-canvas {
@@ -62,32 +60,32 @@
     .handbook {
       position: relative;
       z-index: 1;
-      width: 860px;
-      padding: 36px 0 56px;
+      width: 100%;
+      max-width: 700px;
+      padding: 24px 16px 40px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      flex-shrink: 0;
+      gap: 18px;
     }
 
     .header {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
     .header-row {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     .title-main {
-      font-size: 30px;
+      font-size: clamp(22px, 5vw, 30px);
       font-weight: 700;
-      color: #e8ecf2;
+      color: #ececf4;
       letter-spacing: -0.02em;
-      line-height: 1.1;
-      white-space: nowrap;
+      line-height: 1.15;
     }
     .title-main .accent-dot {
       color: var(--accent);
@@ -109,16 +107,17 @@
       flex-shrink: 0;
     }
     .pill.archive {
-      color: #8b97a8;
-      background: rgba(139, 151, 168, 0.08);
-      border-color: rgba(139, 151, 168, 0.2);
+      color: #8a8a9a;
+      background: rgba(139,151,168,0.08);
+      border-color: rgba(139,151,168,0.2);
     }
     .pill i {
       font-size: 8px;
     }
     .meta-line {
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 6px 16px;
       font-size: 12px;
       color: var(--text-muted);
     }
@@ -137,23 +136,23 @@
       height: 1px;
       background: var(--border);
       width: 100%;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
     .section {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
     .section-head {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
     .section-icon {
       width: 20px;
       height: 20px;
-      border-radius: 4px;
+      border-radius: 5px;
       background: var(--accent-soft);
       display: flex;
       align-items: center;
@@ -167,19 +166,13 @@
       font-weight: 600;
       color: #bcc5d0;
       letter-spacing: 0.02em;
-      white-space: nowrap;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 18px;
-      transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease;
-    }
-    .card:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-card-alt);
+      padding: 14px 16px;
     }
 
     .rule-table {
@@ -188,17 +181,18 @@
     }
     .rule-table td {
       vertical-align: top;
-      padding: 0 0 6px 0;
+      padding: 0 0 5px 0;
       font-size: 13px;
       color: #b0b9c4;
-      line-height: 1.55;
+      line-height: 1.6;
+      word-break: break-word;
     }
     .rule-table tr:last-child td {
       padding-bottom: 0;
     }
     .td-dot {
-      width: 14px;
-      padding-right: 6px !important;
+      width: 12px;
+      padding-right: 5px !important;
     }
     .rule-dot {
       display: block;
@@ -216,7 +210,7 @@
       font-weight: 600;
       background: var(--tag-bg);
       color: var(--tag-text);
-      padding: 1px 7px;
+      padding: 1px 6px;
       border-radius: var(--radius-sm);
       letter-spacing: 0.02em;
       white-space: nowrap;
@@ -224,19 +218,19 @@
       line-height: 1.45;
     }
     .tag-purple {
-      background: rgba(160, 120, 220, 0.08);
+      background: rgba(160,120,220,0.08);
       color: #b090e0;
     }
     .tag-amber {
-      background: rgba(220, 180, 100, 0.08);
+      background: rgba(220,180,100,0.08);
       color: #d4b464;
     }
     .tag-teal {
-      background: rgba(80, 200, 180, 0.08);
+      background: rgba(80,200,180,0.08);
       color: #50c8b4;
     }
     .tag-rose {
-      background: rgba(220, 110, 130, 0.08);
+      background: rgba(220,110,130,0.08);
       color: #dc6e82;
     }
 
@@ -246,127 +240,86 @@
     }
 
     .sub-card {
-      background: #0a0f16;
-      border: 1px solid #151d2a;
+      background: #08080f;
+      border: 1px solid #151a26;
       border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 8px;
+      padding: 10px 12px;
+      margin-top: 6px;
     }
     .sub-card-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: #8b97a8;
-      margin-bottom: 6px;
+      color: #8a8a9a;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
     .sub-card-title i {
-      font-size: 9px;
+      font-size: 8px;
       color: var(--accent);
     }
 
-    /* 角色卡片 */
     .staff-roles {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
     }
     .role-card {
-      background: #0a0f16;
-      border: 1px solid #151d2a;
+      background: #08080f;
+      border: 1px solid #151a26;
       border-radius: 8px;
-      padding: 14px 12px;
+      padding: 12px 10px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       text-decoration: none;
       color: inherit;
       display: block;
     }
     .role-card:hover {
-      border-color: #2a4a6b;
-      background: #0f1a26;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-    .role-card.active {
-      border-color: var(--accent);
-      background: #0f1a26;
-      box-shadow: 0 0 0 1px var(--accent-border);
+      border-color: #253550;
+      background: #0c1119;
     }
     .role-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      margin-bottom: 4px;
       color: var(--accent);
     }
     .role-name {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #d0d8e2;
-      margin-bottom: 4px;
     }
     .role-desc {
-      font-size: 11px;
+      font-size: 10px;
       color: #6b7a90;
-      line-height: 1.4;
+      line-height: 1.3;
+      margin-top: 2px;
     }
 
-    /* 详情页面 */
-    .detail-page {
-      display: none;
-    }
-    .detail-page.active {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-
-    /* 返回按钮 */
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border: 1px solid var(--accent-border);
-      padding: 6px 14px;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-      align-self: flex-start;
-    }
-    .back-btn:hover {
-      background: rgba(91,155,213,0.15);
-      border-color: var(--accent);
-    }
-
-    .flow-svg-container {
+    .flow-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 16px;
+      padding: 12px 8px;
       display: flex;
       justify-content: center;
-      transition: border-color 0.3s ease;
+      overflow-x: auto;
     }
-    .flow-svg-container:hover {
-      border-color: var(--border-hover);
-    }
-    .flow-svg-container svg {
+    .flow-box svg {
       width: 100%;
+      max-width: 680px;
       height: auto;
     }
 
     .footer {
       display: flex;
-      gap: 18px;
+      flex-wrap: wrap;
+      gap: 6px 14px;
       font-size: 11px;
       color: var(--text-muted);
-      padding-top: 2px;
+      padding-top: 4px;
     }
     .footer span {
       display: inline-flex;
@@ -380,9 +333,60 @@
       opacity: 0.45;
     }
 
-    @media (max-width: 900px) {
+    .detail-page {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .detail-page.active {
+      display: flex;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 6px 12px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+    .back-btn:hover {
+      background: rgba(91,155,213,0.14);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 480px) {
+      .handbook {
+        padding: 16px 10px 32px;
+        gap: 14px;
+      }
+      .card {
+        padding: 12px 12px;
+      }
+      .rule-table td {
+        font-size: 12px;
+      }
+      .tag {
+        font-size: 11px;
+        padding: 1px 5px;
+      }
       .staff-roles {
         grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+    }
+
+    @media (min-width: 500px) {
+      .staff-roles {
+        grid-template-columns: repeat(4, 1fr);
       }
     }
   </style>
@@ -400,7 +404,7 @@
           <div class="title-main">Staff执行规范<span class="accent-dot"> · </span>内部手册</div>
           <div>
             <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-            <span class="pill archive" style="margin-left:6px;"><i class="fas fa-archive"></i> 归档</span>
+            <span class="pill archive" style="margin-left:4px;"><i class="fas fa-archive"></i> 归档</span>
           </div>
         </div>
         <div class="meta-line">
@@ -420,17 +424,17 @@
             <div class="role-card" onclick="showPage('page-npc')">
               <div class="role-icon">🎭</div>
               <div class="role-name">任务交互NPC</div>
-              <div class="role-desc">发布任务、接待玩家、管理任务圈</div>
+              <div class="role-desc">发布任务、接待玩家</div>
             </div>
             <div class="role-card" onclick="showPage('page-inspector')">
               <div class="role-icon">🔍</div>
               <div class="role-name">督查与回收</div>
-              <div class="role-desc">监督违规、回收奖励盒、记录编号</div>
+              <div class="role-desc">监督违规、回收奖励盒</div>
             </div>
             <div class="role-card" onclick="showPage('page-controller')">
               <div class="role-icon">📡</div>
               <div class="role-name">场控</div>
-              <div class="role-desc">监督者（1人）+ 交互（1人）</div>
+              <div class="role-desc">监督者 + 交互</div>
             </div>
             <div class="role-card" onclick="showPage('page-photographer')">
               <div class="role-icon">📷</div>
@@ -462,7 +466,7 @@
               <tr><td class="td-dot"><span class="rule-dot"></span></td><td>此群聊仅能用于更新玩家状态（技能持续时间等）</td></tr>
             </table>
           </div>
-          <table class="rule-table" style="margin-top:10px;">
+          <table class="rule-table" style="margin-top:8px;">
             <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">高德群聊</span></td></tr>
           </table>
           <div class="sub-card">
@@ -477,96 +481,50 @@
 
     <!-- ==================== NPC 详情页 ==================== -->
     <div id="page-npc" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')">
-        <i class="fas fa-arrow-left"></i> 返回首页
-      </div>
-
+      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
       <div class="header">
-        <div class="header-row">
-          <div class="title-main">🎭 任务交互NPC</div>
-          <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-        </div>
+        <div class="header-row"><div class="title-main">🎭 任务交互NPC</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div>
         <div class="divider"></div>
       </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-circle"></i></div>
-          <div class="section-title">无任务阶段</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>指导提示，等待游戏开始（场控发令）</td></tr>
-          </table>
-        </div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-circle"></i></div><div class="section-title">无任务阶段</div></div>
+        <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>指导提示，等待游戏开始（场控发令）</td></tr></table></div>
       </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-play-circle"></i></div>
-          <div class="section-title">有任务阶段</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>听场控命令，查询任务地点并前往</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到任务地点之后 <span class="tag-teal">开启定位</span>，划定任务圈</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在高德地图发布 <span class="tag-amber">文字+语音</span> 的提示，声明任务内容和持续时长</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>按照约定接待玩家</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在 <span class="tag-purple">玩家状态记录群聊</span> 中报告获取技能</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>倒计时阶段发布语音和文字提醒</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>时间到 <span class="tag-rose">取消画圈和自身定位</span>，高德地图文字+语音声明结束任务</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>回到 <span class="tag">H4</span> 等待分派任务</td></tr>
-          </table>
-        </div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-play-circle"></i></div><div class="section-title">有任务阶段</div></div>
+        <div class="card"><table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>听场控命令，查询任务地点并前往</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到任务地点之后 <span class="tag-teal">开启定位</span>，划定任务圈</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在高德地图发布 <span class="tag-amber">文字+语音</span> 的提示，声明任务内容和持续时长</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>按照约定接待玩家</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在 <span class="tag-purple">玩家状态记录群聊</span> 中报告获取技能</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>倒计时阶段发布语音和文字提醒</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>时间到 <span class="tag-rose">取消画圈和自身定位</span>，高德地图文字+语音声明结束任务</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>回到 <span class="tag">H4</span> 等待分派任务</td></tr>
+        </table></div>
       </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
-          <div class="section-title">NPC任务流程</div>
-        </div>
-        <div class="flow-svg-container">
-          <svg viewBox="0 0 820 380" xmlns="http://www.w3.org/2000/svg">
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">NPC任务流程</div></div>
+        <div class="flow-box">
+          <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#5b9bd5"/>
-              </marker>
-              <marker id="arrowGray2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#3a4555"/>
-              </marker>
+              <marker id="ab" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
+              <marker id="ag2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#3a4555"/></marker>
             </defs>
-
-            <rect x="40" y="60" width="130" height="44" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="105" y="88" text-anchor="middle" fill="#bcc5d0" font-size="12">📋 等待场控指令</text>
-
-            <line x1="170" y1="82" x2="220" y2="82" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrowGray2)"/>
-
-            <rect x="224" y="60" width="130" height="44" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="289" y="88" text-anchor="middle" fill="#bcc5d0" font-size="12">📩 接收任务地点</text>
-
-            <line x1="354" y1="82" x2="404" y2="82" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrowGray2)"/>
-
-            <rect x="408" y="60" width="130" height="44" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="473" y="88" text-anchor="middle" fill="#bcc5d0" font-size="12">🏃 前往任务地点</text>
-
-            <line x1="473" y1="104" x2="473" y2="140" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrowGray2)"/>
-
-            <rect x="373" y="144" width="200" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="473" y="165" text-anchor="middle" fill="#6aa8e0" font-size="12">📍 开启定位</text>
-            <text x="473" y="180" text-anchor="middle" fill="#6aa8e0" font-size="12">划定任务圈</text>
-
-            <line x1="473" y1="188" x2="473" y2="224" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrowGray2)"/>
-
-            <rect x="373" y="228" width="200" height="44" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="473" y="256" text-anchor="middle" fill="#bcc5d0" font-size="12">📢 发布语音+文字提示</text>
-
-            <line x1="473" y1="272" x2="473" y2="300" stroke="#3a4555" stroke-width="1.5" marker-end="url(#arrowGray2)"/>
-
-            <rect x="373" y="304" width="200" height="44" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="473" y="332" text-anchor="middle" fill="#bcc5d0" font-size="12">🤝 接待玩家 · 报告技能</text>
-
-            <path d="M573 326 L640 326 L640 82 L550 82" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowBlue)"/>
-            <text x="650" y="200" text-anchor="middle" fill="#5b9bd5" font-size="10">返回H4等待新任务</text>
+            <rect x="30" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="90" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📋 等待场控指令</text>
+            <line x1="150" y1="70" x2="195" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+            <rect x="199" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="259" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📩 接收任务地点</text>
+            <line x1="319" y1="70" x2="364" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+            <rect x="368" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="428" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">🏃 前往任务地点</text>
+            <line x1="428" y1="90" x2="428" y2="124" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+            <rect x="328" y="128" width="200" height="40" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+            <text x="428" y="148" text-anchor="middle" fill="#6aa8e0" font-size="11">📍 开启定位 · 划定任务圈</text>
+            <text x="428" y="162" text-anchor="middle" fill="#6aa8e0" font-size="10">发布语音+文字提示</text>
+            <line x1="428" y1="168" x2="428" y2="200" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+            <rect x="328" y="204" width="200" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="428" y="229" text-anchor="middle" fill="#bcc5d0" font-size="11">🤝 接待玩家 · 报告技能</text>
+            <path d="M528 224 L580 224 L580 70 L500 70" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab)"/>
+            <text x="590" y="150" text-anchor="middle" fill="#5b9bd5" font-size="9">返回H4等待新任务</text>
           </svg>
         </div>
       </div>
@@ -574,70 +532,36 @@
 
     <!-- ==================== 督查详情页 ==================== -->
     <div id="page-inspector" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')">
-        <i class="fas fa-arrow-left"></i> 返回首页
+      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+      <div class="header"><div class="header-row"><div class="title-main">🔍 督查与回收奖励盒</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-clipboard-check"></i></div><div class="section-title">职责说明</div></div>
+        <div class="card"><table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>监督场上是否有人违规（<span class="tag-rose">违规骑车</span>、<span class="tag-rose">持续在楼内等待</span>）</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>根据场控指示（私聊）<span class="tag-amber">回收奖励盒</span> 并 <span class="tag-teal">记录回收盒子的编号</span></td></tr>
+        </table><div style="text-align:right;margin-top:4px;"><span class="muted-text" style="font-size:10px;">——你哥</span></div></div>
       </div>
-
-      <div class="header">
-        <div class="header-row">
-          <div class="title-main">🔍 督查与回收奖励盒</div>
-          <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-        </div>
-        <div class="divider"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-clipboard-check"></i></div>
-          <div class="section-title">职责说明</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>监督场上是否有人违规（<span class="tag-rose">违规骑车</span>、<span class="tag-rose">持续在楼内等待</span>）</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>根据场控指示（私聊）<span class="tag-amber">回收奖励盒</span> 并 <span class="tag-teal">记录回收盒子的编号</span></td></tr>
-          </table>
-          <div style="text-align:right; margin-top:6px;">
-            <span class="muted-text" style="font-size:11px;">——你哥</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
-          <div class="section-title">督查流程</div>
-        </div>
-        <div class="flow-svg-container">
-          <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">督查流程</div></div>
+        <div class="flow-box">
+          <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="arrowBlue2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#5b9bd5"/>
-              </marker>
-              <marker id="arrowRose" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#dc6e82"/>
-              </marker>
+              <marker id="ab3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
+              <marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#dc6e82"/></marker>
             </defs>
-
-            <rect x="40" y="100" width="160" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="120" y="122" text-anchor="middle" fill="#bcc5d0" font-size="12">👀 巡逻监督</text>
-            <text x="120" y="140" text-anchor="middle" fill="#6b7a90" font-size="11">违规骑车/楼内逗留</text>
-
-            <line x1="200" y1="125" x2="300" y2="125" stroke="#dc6e82" stroke-width="1.5" marker-end="url(#arrowRose)"/>
-            <text x="250" y="118" text-anchor="middle" fill="#dc6e82" font-size="10">发现违规</text>
-
-            <rect x="304" y="100" width="160" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="384" y="122" text-anchor="middle" fill="#bcc5d0" font-size="12">⚠️ 记录并上报</text>
-            <text x="384" y="140" text-anchor="middle" fill="#6b7a90" font-size="11">通知场控处理</text>
-
-            <path d="M384 150 L384 185 L120 185 L120 160" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowBlue2)"/>
-            <text x="252" y="200" text-anchor="middle" fill="#5b9bd5" font-size="10">继续巡逻</text>
-
-            <rect x="530" y="100" width="220" height="50" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="640" y="122" text-anchor="middle" fill="#6aa8e0" font-size="12">📦 听从场控私聊指令</text>
-            <text x="640" y="140" text-anchor="middle" fill="#6aa8e0" font-size="11">回收奖励盒 + 记录编号</text>
-
-            <line x1="464" y1="125" x2="520" y2="125" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#arrowBlue2)"/>
-            <text x="492" y="118" text-anchor="middle" fill="#5b9bd5" font-size="10">收到指令</text>
+            <rect x="20" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="95" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">👀 巡逻监督</text>
+            <text x="95" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">违规骑车/楼内逗留</text>
+            <line x1="170" y1="102" x2="250" y2="102" stroke="#dc6e82" stroke-width="1.5" marker-end="url(#ar2)"/>
+            <text x="210" y="95" text-anchor="middle" fill="#dc6e82" font-size="9">发现违规</text>
+            <rect x="254" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="329" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">⚠️ 记录并上报</text>
+            <text x="329" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">通知场控处理</text>
+            <path d="M329 124 L329 155 L95 155 L95 134" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab3)"/>
+            <text x="210" y="168" text-anchor="middle" fill="#5b9bd5" font-size="9">继续巡逻</text>
+            <rect x="460" y="80" width="190" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+            <text x="555" y="100" text-anchor="middle" fill="#6aa8e0" font-size="11">📦 听从场控私聊指令</text>
+            <text x="555" y="116" text-anchor="middle" fill="#6aa8e0" font-size="10">回收奖励盒 + 记录编号</text>
+            <line x1="404" y1="102" x2="450" y2="102" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab3)"/>
+            <text x="427" y="95" text-anchor="middle" fill="#5b9bd5" font-size="9">收到指令</text>
           </svg>
         </div>
       </div>
@@ -645,162 +569,61 @@
 
     <!-- ==================== 场控详情页 ==================== -->
     <div id="page-controller" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')">
-        <i class="fas fa-arrow-left"></i> 返回首页
+      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+      <div class="header"><div class="header-row"><div class="title-main">📡 场控</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-eye"></i></div><div class="section-title">监督者</div></div>
+        <div class="card"><table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>对比玩家状态记录群中的状态提示</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">接收</span> 并 <span class="tag-teal">记录</span> 场上玩家发动的技能信息</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到时间提醒玩家</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>辅助交互场控（查看地图等）</td></tr>
+        </table></div>
       </div>
-
-      <div class="header">
-        <div class="header-row">
-          <div class="title-main">📡 场控</div>
-          <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-        </div>
-        <div class="divider"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-eye"></i></div>
-          <div class="section-title">监督者</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>对比玩家状态记录群中的状态提示</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">接收</span> 并 <span class="tag-teal">记录</span> 场上玩家发动的技能信息</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到时间提醒玩家</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>辅助交互场控（查看地图等）</td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-headset"></i></div>
-          <div class="section-title">交互</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>查看私信，回复玩家</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>指挥 <span class="tag-purple">任务交互NPC</span></td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
-          <div class="section-title">场控工作流程</div>
-        </div>
-        <div class="flow-svg-container">
-          <svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="arrowBlue3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#5b9bd5"/>
-              </marker>
-            </defs>
-
-            <rect x="30" y="40" width="170" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="115" y="62" text-anchor="middle" fill="#bcc5d0" font-size="12">📋 监督者</text>
-            <text x="115" y="80" text-anchor="middle" fill="#6b7a90" font-size="11">记录技能 · 提醒时间</text>
-
-            <rect x="320" y="40" width="170" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="405" y="62" text-anchor="middle" fill="#bcc5d0" font-size="12">🎧 交互</text>
-            <text x="405" y="80" text-anchor="middle" fill="#6b7a90" font-size="11">回复私信 · 指挥NPC</text>
-
-            <rect x="610" y="40" width="170" height="50" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="695" y="62" text-anchor="middle" fill="#6aa8e0" font-size="12">📢 群聊发布指令</text>
-            <text x="695" y="80" text-anchor="middle" fill="#6aa8e0" font-size="11">听令指挥群 + 玩家状态群</text>
-
-            <line x1="200" y1="65" x2="310" y2="65" stroke="#5b9bd5" stroke-width="1.2" marker-end="url(#arrowBlue3)"/>
-            <line x1="490" y1="65" x2="600" y2="65" stroke="#5b9bd5" stroke-width="1.2" marker-end="url(#arrowBlue3)"/>
-
-            <rect x="180" y="160" width="460" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="410" y="182" text-anchor="middle" fill="#bcc5d0" font-size="12">🔄 双向协作</text>
-            <text x="410" y="200" text-anchor="middle" fill="#6b7a90" font-size="11">监督者辅助交互（查看地图）| 交互传达玩家需求给监督者</text>
-
-            <line x1="115" y1="90" x2="210" y2="155" stroke="#3a4555" stroke-width="1" stroke-dasharray="5,3"/>
-            <line x1="405" y1="90" x2="350" y2="155" stroke="#3a4555" stroke-width="1" stroke-dasharray="5,3"/>
-            <line x1="695" y1="90" x2="550" y2="155" stroke="#3a4555" stroke-width="1" stroke-dasharray="5,3"/>
-          </svg>
-        </div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-headset"></i></div><div class="section-title">交互</div></div>
+        <div class="card"><table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>查看私信，回复玩家</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>指挥 <span class="tag-purple">任务交互NPC</span></td></tr>
+        </table></div>
       </div>
     </div>
 
     <!-- ==================== 摄影详情页 ==================== -->
     <div id="page-photographer" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')">
-        <i class="fas fa-arrow-left"></i> 返回首页
+      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+      <div class="header"><div class="header-row"><div class="title-main">📷 摄影</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-camera-retro"></i></div><div class="section-title">职责说明</div></div>
+        <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>全程记录活动现场影像资料</td></tr></table></div>
       </div>
-
-      <div class="header">
-        <div class="header-row">
-          <div class="title-main">📷 摄影</div>
-          <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-        </div>
-        <div class="divider"></div>
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-tasks"></i></div><div class="section-title">工作要点</div></div>
+        <div class="card"><table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>抓拍精彩瞬间：追捕、任务交互、玩家反应</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄团队合影与活动花絮</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>注意<span class="tag-teal">不影响游戏正常进行</span>，保持适当距离</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄时<span class="tag-rose">避免使用闪光灯</span>干扰玩家</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>活动结束后整理素材并<span class="tag-amber">上传至指定位置</span></td></tr>
+        </table></div>
       </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-camera-retro"></i></div>
-          <div class="section-title">职责说明</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>全程记录活动现场影像资料</td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-tasks"></i></div>
-          <div class="section-title">工作要点</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>抓拍精彩瞬间：追捕、任务交互、玩家反应</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄团队合影与活动花絮</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>注意<span class="tag-teal">不影响游戏正常进行</span>，保持适当距离</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄时<span class="tag-rose">避免使用闪光灯</span>干扰玩家</td></tr>
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td>活动结束后整理素材并<span class="tag-amber">上传至指定位置</span></td></tr>
-          </table>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
-          <div class="section-title">拍摄流程</div>
-        </div>
-        <div class="flow-svg-container">
-          <svg viewBox="0 0 820 180" xmlns="http://www.w3.org/2000/svg">
+      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">拍摄流程</div></div>
+        <div class="flow-box">
+          <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="arrowBlue4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                <polygon points="0,0 8,4 0,8" fill="#5b9bd5"/>
-              </marker>
+              <marker id="ab4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
             </defs>
-
-            <rect x="20" y="60" width="140" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="90" y="82" text-anchor="middle" fill="#bcc5d0" font-size="12">📷 活动开始</text>
-            <text x="90" y="98" text-anchor="middle" fill="#6b7a90" font-size="11">准备设备</text>
-
-            <line x1="160" y1="85" x2="230" y2="85" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#arrowBlue4)"/>
-
-            <rect x="234" y="60" width="140" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="304" y="82" text-anchor="middle" fill="#bcc5d0" font-size="12">🎬 全程跟拍</text>
-            <text x="304" y="98" text-anchor="middle" fill="#6b7a90" font-size="11">精彩瞬间+花絮</text>
-
-            <line x1="374" y1="85" x2="444" y2="85" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#arrowBlue4)"/>
-
-            <rect x="448" y="60" width="140" height="50" rx="8" fill="#0d1117" stroke="#1a2435" stroke-width="1.5"/>
-            <text x="518" y="82" text-anchor="middle" fill="#bcc5d0" font-size="12">📸 重点拍摄</text>
-            <text x="518" y="98" text-anchor="middle" fill="#6b7a90" font-size="11">任务点+抓捕</text>
-
-            <line x1="588" y1="85" x2="658" y2="85" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#arrowBlue4)"/>
-
-            <rect x="662" y="60" width="140" height="50" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="732" y="82" text-anchor="middle" fill="#6aa8e0" font-size="12">📤 整理上传</text>
-            <text x="732" y="98" text-anchor="middle" fill="#6aa8e0" font-size="11">素材归档</text>
+            <rect x="15" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="72" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📷 活动开始</text>
+            <text x="72" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">准备设备</text>
+            <line x1="130" y1="67" x2="185" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+            <rect x="189" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="246" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">🎬 全程跟拍</text>
+            <text x="246" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">精彩瞬间+花絮</text>
+            <line x1="304" y1="67" x2="359" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+            <rect x="363" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+            <text x="420" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📸 重点拍摄</text>
+            <text x="420" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">任务点+抓捕</text>
+            <line x1="478" y1="67" x2="533" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+            <rect x="537" y="45" width="120" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+            <text x="597" y="65" text-anchor="middle" fill="#6aa8e0" font-size="11">📤 整理上传</text>
+            <text x="597" y="80" text-anchor="middle" fill="#6aa8e0" font-size="10">素材归档</text>
           </svg>
         </div>
       </div>
@@ -815,126 +638,82 @@
   </div>
 
   <script>
-    function showPage(pageId) {
-      document.querySelectorAll('.detail-page').forEach(page => {
-        page.classList.remove('active');
-      });
-      document.getElementById(pageId).classList.add('active');
+    function showPage(id) {
+      document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     (function() {
-      const canvas = document.getElementById('particles-canvas');
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      let particles = [];
-      const count = 80;
-      const maxDist = 110;
-      let mouseX = -1000;
-      let mouseY = -1000;
-      let targetMouseX = -1000;
-      let targetMouseY = -1000;
+      const c = document.getElementById('particles-canvas');
+      const ctx = c.getContext('2d');
+      let w, h, ps = [],
+        mx = -1000,
+        my = -1000,
+        tx = -1000,
+        ty = -1000;
+      const n = 60,
+        d = 100;
 
-      function resize() {
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width = w;
-        canvas.height = h;
-      }
+      function rs() { w = innerWidth;
+        h = innerHeight;
+        c.width = w;
+        c.height = h; }
 
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-        reset() {
-          this.x = Math.random() * w;
+      class P {
+        constructor() { this.rst(); }
+        rst() { this.x = Math.random() * w;
           this.y = Math.random() * h;
           this.vx = (Math.random() - 0.5) * 0.3;
           this.vy = (Math.random() - 0.5) * 0.3;
           this.r = Math.random() * 1.2 + 0.4;
-          this.baseR = this.r;
-        }
-        update() {
-          const dx = this.x - mouseX;
-          const dy = this.y - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const mouseRadius = 140;
-          if (dist < mouseRadius) {
-            const force = (mouseRadius - dist) / mouseRadius;
-            const angle = Math.atan2(dy, dx);
-            this.x += Math.cos(angle) * force * 1.0;
-            this.y += Math.sin(angle) * force * 1.0;
-            this.r = this.baseR + force * 1.5;
-          } else {
-            this.r += (this.baseR - this.r) * 0.08;
-          }
+          this.br = this.r; }
+        up() { const dx = this.x - mx,
+            dy = this.y - my,
+            ds = Math.sqrt(dx * dx + dy * dy),
+            rd = 130; if (ds < rd) { const f = (rd - ds) / rd,
+              a = Math.atan2(dy, dx);
+            this.x += Math.cos(a) * f * 1.2;
+            this.y += Math.sin(a) * f * 1.2;
+            this.r = this.br + f * 1.5; } else this.r += (this.br - this.r) * 0.08;
           this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < -20) this.x = w + 20;
-          if (this.x > w + 20) this.x = -20;
-          if (this.y < -20) this.y = h + 20;
-          if (this.y > h + 20) this.y = -20;
-        }
-        draw(ctx) {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-          ctx.fillStyle = 'rgba(91,155,213,0.4)';
-          ctx.fill();
-        }
+          this.y += this.vy; if (this.x < -20) this.x = w + 20; if (this.x > w + 20) this.x = -20; if (this
+            .y < -20) this.y = h + 20; if (this.y > h + 20) this.y = -20; }
+        dr() { ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(91,155,213,0.35)';
+          ctx.fill(); }
       }
 
-      function init() {
-        particles = [];
-        for (let i=0;i<count;i++) particles.push(new Particle());
-      }
+      function init() { ps = [];
+        for (let i = 0; i < n; i++) ps.push(new P()); }
 
-      function drawLines() {
-        for (let i=0;i<particles.length;i++) {
-          for (let j=i+1;j<particles.length;j++) {
-            const dx=particles[i].x-particles[j].x;
-            const dy=particles[i].y-particles[j].y;
-            const dist=Math.sqrt(dx*dx+dy*dy);
-            if(dist<maxDist){
-              const alpha=(1-dist/maxDist)*0.2;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x,particles[i].y);
-              ctx.lineTo(particles[j].x,particles[j].y);
-              ctx.strokeStyle=`rgba(91,155,213,${alpha})`;
-              ctx.lineWidth=0.35;
-              ctx.stroke();
-            }
-          }
-        }
-        if(mouseX>0&&mouseY>0){
-          ctx.beginPath();
-          ctx.arc(mouseX,mouseY,45,0,Math.PI*2);
-          const glow=ctx.createRadialGradient(mouseX,mouseY,0,mouseX,mouseY,45);
-          glow.addColorStop(0,'rgba(91,155,213,0.12)');
-          glow.addColorStop(1,'rgba(91,155,213,0)');
-          ctx.fillStyle=glow;
-          ctx.fill();
-        }
-      }
+      function lines() { for (let i = 0; i < ps.length; i++)
+          for (let j = i + 1; j < ps.length; j++) { const dx = ps[i].x - ps[j].x,
+              dy = ps[i].y - ps[j].y,
+              ds = Math.sqrt(dx * dx + dy * dy); if (ds < d) { ctx.beginPath();
+              ctx.moveTo(ps[i].x, ps[i].y);
+              ctx.lineTo(ps[j].x, ps[j].y);
+              ctx.strokeStyle = `rgba(91,155,213,${(1-ds/d)*0.18})`;
+              ctx.lineWidth = 0.3;
+              ctx.stroke(); } } }
 
-      function animate(){
-        ctx.clearRect(0,0,w,h);
-        mouseX+=(targetMouseX-mouseX)*0.06;
-        mouseY+=(targetMouseY-mouseY)*0.06;
-        particles.forEach(p=>{p.update();p.draw(ctx);});
-        drawLines();
-        requestAnimationFrame(animate);
-      }
-
-      window.addEventListener('resize',()=>{resize();init();});
-      window.addEventListener('mousemove',(e)=>{
-        targetMouseX=e.clientX;
-        targetMouseY=e.clientY;
-      });
-      window.addEventListener('mouseleave',()=>{
-        targetMouseX=-1000;
-        targetMouseY=-1000;
-      });
-      resize();init();animate();
+      function anim() { ctx.clearRect(0, 0, w, h);
+        mx += (tx - mx) * 0.06;
+        my += (ty - my) * 0.06;
+        ps.forEach(p => { p.up();
+          p.dr(); });
+        lines();
+        requestAnimationFrame(anim); }
+      window.addEventListener('resize', () => { rs();
+        init(); });
+      window.addEventListener('mousemove', e => { tx = e.clientX;
+        ty = e.clientY; });
+      window.addEventListener('mouseleave', () => { tx = -1000;
+        ty = -1000; });
+      rs();
+      init();
+      anim();
     })();
   </script>
 </body>

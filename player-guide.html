@@ -10,22 +10,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
-      --bg-deep: #08080b;
-      --bg-card: #121216;
-      --bg-card-alt: #16161b;
-      --border: #1f1f26;
-      --border-hover: #2a2a33;
-      --text: #dddde4;
-      --text-secondary: #9d9da8;
-      --text-muted: #666673;
+      --bg-deep: #050508;
+      --bg-card: #0d0d14;
+      --border: #1a1a26;
+      --border-hover: #252536;
+      --text: #e0e0e8;
+      --text-secondary: #8a8a9a;
+      --text-muted: #5a5a6e;
       --accent: #d4a968;
-      --accent-soft: rgba(212, 169, 104, 0.1);
-      --accent-border: rgba(212, 169, 104, 0.25);
-      --tag-bg: rgba(212, 169, 104, 0.08);
+      --accent-soft: rgba(212,169,104,0.08);
+      --accent-border: rgba(212,169,104,0.2);
+      --tag-bg: rgba(212,169,104,0.08);
       --tag-text: #d4a968;
-      --radius-sm: 4px;
-      --radius: 10px;
-      --font: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 6px;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --font: 'Noto Sans SC','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     }
 
     * {
@@ -39,14 +39,11 @@
       font-family: var(--font);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      position: relative;
-      overflow-x: auto;
-      min-width: 900px;
+      letter-spacing: 0.01em;
     }
 
     #particles-canvas {
@@ -62,32 +59,33 @@
     .handbook {
       position: relative;
       z-index: 1;
-      width: 860px;
-      padding: 36px 0 56px;
+      width: 100%;
+      max-width: 700px;
+      padding: 24px 16px 40px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      flex-shrink: 0;
+      gap: 18px;
     }
 
+    /* 头部 */
     .header {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
     .header-row {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     .title-main {
-      font-size: 32px;
+      font-size: clamp(22px, 5vw, 30px);
       font-weight: 700;
-      color: #eeeef3;
+      color: #ececf4;
       letter-spacing: -0.02em;
-      line-height: 1.1;
-      white-space: nowrap;
+      line-height: 1.15;
     }
     .title-main .accent-dot {
       color: var(--accent);
@@ -113,7 +111,8 @@
     }
     .meta-line {
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 6px 16px;
       font-size: 12px;
       color: var(--text-muted);
     }
@@ -132,23 +131,24 @@
       height: 1px;
       background: var(--border);
       width: 100%;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
+    /* 板块 */
     .section {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
     .section-head {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
     .section-icon {
       width: 20px;
       height: 20px;
-      border-radius: 4px;
+      border-radius: 5px;
       background: var(--accent-soft);
       display: flex;
       align-items: center;
@@ -160,46 +160,36 @@
     .section-title {
       font-size: 13px;
       font-weight: 600;
-      color: #c5c5cf;
+      color: #c0bcc8;
       letter-spacing: 0.02em;
-      white-space: nowrap;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 18px;
-      transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease;
-    }
-    .card:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-card-alt);
-      transform: translateY(-2px);
+      padding: 14px 16px;
     }
 
     .rule-table {
       width: 100%;
       border-collapse: collapse;
     }
-
     .rule-table td {
       vertical-align: top;
-      padding: 0 0 6px 0;
+      padding: 0 0 5px 0;
       font-size: 13px;
-      color: #b8b8c2;
-      line-height: 1.55;
+      color: #b0b4be;
+      line-height: 1.6;
+      word-break: break-word;
     }
-
     .rule-table tr:last-child td {
       padding-bottom: 0;
     }
-
     .td-dot {
-      width: 14px;
-      padding-right: 6px !important;
+      width: 12px;
+      padding-right: 5px !important;
     }
-
     .rule-dot {
       display: block;
       width: 3px;
@@ -216,7 +206,7 @@
       font-weight: 600;
       background: var(--tag-bg);
       color: var(--tag-text);
-      padding: 1px 7px;
+      padding: 1px 6px;
       border-radius: var(--radius-sm);
       letter-spacing: 0.02em;
       white-space: nowrap;
@@ -224,15 +214,15 @@
       line-height: 1.45;
     }
     .tag-red {
-      background: rgba(220, 90, 90, 0.12);
+      background: rgba(220,90,90,0.08);
       color: #dc5a5a;
     }
     .tag-green {
-      background: rgba(90, 200, 130, 0.1);
+      background: rgba(90,200,130,0.08);
       color: #5ac882;
     }
     .tag-blue {
-      background: rgba(90, 150, 220, 0.1);
+      background: rgba(90,150,220,0.08);
       color: #5a96dc;
     }
 
@@ -241,29 +231,30 @@
       font-style: italic;
     }
 
-    .flow-svg-container {
+    /* 流程图 */
+    .flow-box {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px 20px;
+      padding: 12px 8px;
       display: flex;
       justify-content: center;
-      transition: border-color 0.3s ease;
+      overflow-x: auto;
     }
-    .flow-svg-container:hover {
-      border-color: var(--border-hover);
-    }
-    .flow-svg-container svg {
+    .flow-box svg {
       width: 100%;
+      max-width: 680px;
       height: auto;
     }
 
+    /* 底部 */
     .footer {
       display: flex;
-      gap: 18px;
+      flex-wrap: wrap;
+      gap: 6px 14px;
       font-size: 11px;
       color: var(--text-muted);
-      padding-top: 2px;
+      padding-top: 4px;
     }
     .footer span {
       display: inline-flex;
@@ -275,6 +266,23 @@
       font-size: 7px;
       color: var(--accent);
       opacity: 0.45;
+    }
+
+    @media (max-width: 480px) {
+      .handbook {
+        padding: 16px 10px 32px;
+        gap: 14px;
+      }
+      .card {
+        padding: 12px 12px;
+      }
+      .rule-table td {
+        font-size: 12px;
+      }
+      .tag {
+        font-size: 11px;
+        padding: 1px 5px;
+      }
     }
   </style>
 </head>
@@ -368,118 +376,84 @@
         <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
         <div class="section-title">流程说明</div>
       </div>
-      <div class="flow-svg-container">
-        <svg viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg">
+      <div class="flow-box">
+        <svg viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-              <polygon points="0,0 8,4 0,8" fill="#3a3a44"/>
-            </marker>
-            <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-              <polygon points="0,0 8,4 0,8" fill="#cc6666"/>
-            </marker>
-            <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-              <polygon points="0,0 8,4 0,8" fill="#66aa66"/>
-            </marker>
-            <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-              <polygon points="0,0 8,4 0,8" fill="#d4a968"/>
-            </marker>
-            <linearGradient id="gradStart" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#d4a968"/>
-              <stop offset="100%" stop-color="#b8894a"/>
-            </linearGradient>
-            <linearGradient id="gradEnd" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#5ac882"/>
-              <stop offset="100%" stop-color="#3a9058"/>
-            </linearGradient>
+            <marker id="ag" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#3a3a44"/></marker>
+            <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#cc6666"/></marker>
+            <marker id="agr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#66aa66"/></marker>
+            <marker id="ago" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#d4a968"/></marker>
+            <linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4a968"/><stop offset="100%" stop-color="#b8894a"/></linearGradient>
+            <linearGradient id="ge" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5ac882"/><stop offset="100%" stop-color="#3a9058"/></linearGradient>
           </defs>
 
-          <rect x="340" y="10" width="140" height="44" rx="22" fill="#1a1a22" stroke="url(#gradStart)" stroke-width="2"/>
-          <text x="410" y="38" text-anchor="middle" fill="#eeeef3" font-size="15" font-weight="600">🏁 集合</text>
+          <rect x="270" y="10" width="140" height="44" rx="22" fill="#1a1a22" stroke="url(#gs)" stroke-width="2"/>
+          <text x="340" y="38" text-anchor="middle" fill="#eeeef3" font-size="14" font-weight="600">🏁 集合</text>
+          <line x1="340" y1="54" x2="340" y2="76" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
 
-          <line x1="410" y1="54" x2="410" y2="78" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+          <rect x="260" y="80" width="160" height="44" rx="8" fill="#0d0d14" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="340" y="108" text-anchor="middle" fill="#e0e0e8" font-size="13">📍 H4 重生点</text>
+          <line x1="340" y1="124" x2="340" y2="146" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
 
-          <rect x="330" y="82" width="160" height="44" rx="8" fill="#14141c" stroke="#3a3a44" stroke-width="1.5"/>
-          <text x="410" y="110" text-anchor="middle" fill="#dddde4" font-size="14">📍 H4 重生点</text>
+          <text x="340" y="164" text-anchor="middle" fill="#5a5a6e" font-size="10">三队派发</text>
+          <line x1="340" y1="168" x2="340" y2="182" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="80" y1="182" x2="600" y2="182" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="80" y1="182" x2="80" y2="196" stroke="#3a3a44" stroke-width="1" marker-end="url(#ag)"/>
+          <line x1="340" y1="182" x2="340" y2="196" stroke="#3a3a44" stroke-width="1" marker-end="url(#ag)"/>
+          <line x1="600" y1="182" x2="600" y2="196" stroke="#3a3a44" stroke-width="1" marker-end="url(#ag)"/>
 
-          <line x1="410" y1="126" x2="410" y2="150" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+          <rect x="10" y="200" width="140" height="36" rx="6" fill="#0d0d14" stroke="#2a2a36" stroke-width="1"/>
+          <text x="80" y="223" text-anchor="middle" fill="#b0b4be" font-size="11">Team A · J1 体育馆</text>
+          <rect x="270" y="200" width="140" height="36" rx="6" fill="#0d0d14" stroke="#2a2a36" stroke-width="1"/>
+          <text x="340" y="223" text-anchor="middle" fill="#b0b4be" font-size="11">Team B · H2 β书院</text>
+          <rect x="530" y="200" width="140" height="36" rx="6" fill="#0d0d14" stroke="#2a2a36" stroke-width="1"/>
+          <text x="600" y="223" text-anchor="middle" fill="#b0b4be" font-size="11">Team C · E13 教学中心</text>
 
-          <text x="410" y="170" text-anchor="middle" fill="#666673" font-size="11">三队派发</text>
+          <line x1="80" y1="236" x2="80" y2="258" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="340" y1="236" x2="340" y2="258" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="600" y1="236" x2="600" y2="258" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="80" y1="258" x2="600" y2="258" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="340" y1="258" x2="340" y2="272" stroke="#3a3a44" stroke-width="1" marker-end="url(#ag)"/>
 
-          <line x1="410" y1="175" x2="410" y2="190" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="100" y1="190" x2="720" y2="190" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="100" y1="190" x2="100" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
-          <line x1="410" y1="190" x2="410" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
-          <line x1="720" y1="190" x2="720" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+          <polygon points="340,276 400,306 340,336 280,306" fill="#111118" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="340" y="310" text-anchor="middle" fill="#e0e0e8" font-size="12" font-weight="600">⏱️ 游戏时间?</text>
 
-          <rect x="10" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
-          <text x="100" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team A · J1 体育馆</text>
+          <line x1="400" y1="306" x2="530" y2="306" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
+          <text x="465" y="298" text-anchor="middle" fill="#5ac882" font-size="10">✅ 时间到</text>
+          <rect x="534" y="288" width="100" height="36" rx="6" fill="#0d0d14" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="584" y="311" text-anchor="middle" fill="#e0e0e8" font-size="12">💰 结算手环</text>
+          <line x1="584" y1="324" x2="584" y2="344" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
+          <rect x="514" y="348" width="140" height="44" rx="22" fill="#1a1a22" stroke="url(#ge)" stroke-width="2"/>
+          <text x="584" y="376" text-anchor="middle" fill="#5ac882" font-size="13" font-weight="600">🎉 游戏结束和奖励</text>
 
-          <rect x="320" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
-          <text x="410" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team B · H2 β书院</text>
+          <line x1="340" y1="336" x2="340" y2="372" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
+          <text x="352" y="358" fill="#ccc" font-size="10">⏳ 时间未到</text>
 
-          <rect x="630" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
-          <text x="720" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team C · E13 教学中心</text>
+          <polygon points="340,376 400,406 340,436 280,406" fill="#111118" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="340" y="410" text-anchor="middle" fill="#e0e0e8" font-size="12" font-weight="600">🎯 抓捕结果</text>
 
-          <line x1="100" y1="250" x2="100" y2="275" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="410" y1="250" x2="410" y2="275" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="720" y1="250" x2="720" y2="275" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="100" y1="275" x2="720" y2="275" stroke="#3a3a44" stroke-width="1"/>
-          <line x1="410" y1="275" x2="410" y2="290" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+          <line x1="280" y1="406" x2="180" y2="406" stroke="#cc6666" stroke-width="1.5"/>
+          <text x="230" y="398" text-anchor="middle" fill="#cc9999" font-size="10">❌ 被抓捕</text>
+          <rect x="40" y="388" width="140" height="36" rx="6" fill="#181014" stroke="#663333" stroke-width="1.2"/>
+          <text x="110" y="411" text-anchor="middle" fill="#cc9999" font-size="12">🔴 交出手环</text>
+          <path d="M40 406 L25 406 L25 102 L250 102" stroke="#cc6666" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+          <text x="18" y="260" text-anchor="middle" fill="#cc9999" font-size="9" transform="rotate(-90,18,260)">返回重生点</text>
 
-          <polygon points="410,294 470,324 410,354 350,324" fill="#181820" stroke="#4a4a55" stroke-width="1.5"/>
-          <text x="410" y="328" text-anchor="middle" fill="#eeeef3" font-size="13" font-weight="600">⏱️ 游戏时间?</text>
+          <line x1="340" y1="436" x2="340" y2="468" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#ag)"/>
+          <text x="352" y="456" fill="#99cc99" font-size="10">✅ 成功抓捕</text>
+          <rect x="250" y="472" width="180" height="36" rx="6" fill="#101418" stroke="#336633" stroke-width="1.2"/>
+          <text x="340" y="495" text-anchor="middle" fill="#99cc99" font-size="12">🟢 收取手环</text>
+          <path d="M430 490 L470 490 Q490 490 490 470 L490 306 Q490 286 470 286 L410 286" stroke="#66aa66" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#agr)"/>
 
-          <line x1="470" y1="324" x2="620" y2="324" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
-          <text x="545" y="316" text-anchor="middle" fill="#5ac882" font-size="11">✅ 时间到</text>
-
-          <rect x="624" y="304" width="120" height="40" rx="6" fill="#14141c" stroke="#3a3a44" stroke-width="1.5"/>
-          <text x="684" y="330" text-anchor="middle" fill="#dddde4" font-size="13">💰 结算手环</text>
-
-          <line x1="684" y1="344" x2="684" y2="365" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
-
-          <rect x="604" y="369" width="160" height="44" rx="22" fill="#1a1a22" stroke="url(#gradEnd)" stroke-width="2"/>
-          <text x="684" y="397" text-anchor="middle" fill="#5ac882" font-size="14" font-weight="600">🎉 游戏结束和奖励</text>
-
-          <line x1="410" y1="354" x2="410" y2="395" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
-          <text x="424" y="380" fill="#ccc" font-size="11">⏳ 时间未到</text>
-
-          <polygon points="410,400 480,430 410,460 340,430" fill="#181820" stroke="#4a4a55" stroke-width="1.5"/>
-          <text x="410" y="434" text-anchor="middle" fill="#eeeef3" font-size="13" font-weight="600">🎯 抓捕结果</text>
-
-          <line x1="340" y1="430" x2="200" y2="430" stroke="#cc6666" stroke-width="1.5"/>
-          <text x="270" y="422" text-anchor="middle" fill="#cc9999" font-size="11">❌ 被抓捕</text>
-
-          <rect x="40" y="410" width="160" height="40" rx="6" fill="#1c1414" stroke="#663333" stroke-width="1.2"/>
-          <text x="120" y="436" text-anchor="middle" fill="#cc9999" font-size="13">🔴 交出手环</text>
-
-          <path d="M40 430 L25 430 L25 104 L320 104" stroke="#cc6666" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed)"/>
-          <text x="20" y="270" text-anchor="middle" fill="#cc9999" font-size="10" transform="rotate(-90,20,270)">返回重生点</text>
-
-          <line x1="410" y1="460" x2="410" y2="495" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
-          <text x="424" y="483" fill="#99cc99" font-size="11">✅ 成功抓捕</text>
-
-          <rect x="315" y="499" width="190" height="40" rx="6" fill="#141c14" stroke="#336633" stroke-width="1.2"/>
-          <text x="410" y="525" text-anchor="middle" fill="#99cc99" font-size="13">🟢 收取手环</text>
-
-          <path d="M505 519 L560 519 Q580 519 580 499 L580 324 Q580 304 560 304 L480 304" stroke="#66aa66" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
-          <text x="590" y="420" text-anchor="middle" fill="#99cc99" font-size="10">继续游戏</text>
-
-          <line x1="480" y1="440" x2="600" y2="490" stroke="#3a3a44" stroke-width="1.2"/>
-          <text x="555" y="462" text-anchor="middle" fill="#d4a968" font-size="11">📋 等待任务刷新</text>
-
-          <polygon points="640,490 700,520 640,550 580,520" fill="#181820" stroke="#4a4a55" stroke-width="1.2"/>
-          <text x="640" y="524" text-anchor="middle" fill="#d4a968" font-size="12" font-weight="600">📦 任务刷新?</text>
-
-          <line x1="700" y1="520" x2="760" y2="520" stroke="#d4a968" stroke-width="1.2" marker-end="url(#arrowGold)"/>
-          <text x="730" y="513" text-anchor="middle" fill="#d4a968" font-size="10">前往任务点</text>
-
-          <rect x="764" y="500" width="100" height="40" rx="6" fill="#14141c" stroke="#d4a968" stroke-width="1.2"/>
-          <text x="814" y="526" text-anchor="middle" fill="#d4a968" font-size="12">🎁 获得奖励</text>
-
-          <path d="M764 520 L690 520 Q670 520 670 500 L670 324 Q670 304 650 304 L550 304" stroke="#d4a968" stroke-width="1" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowGold)"/>
-          <text x="570" y="295" text-anchor="middle" fill="#d4a968" font-size="10">🔁 继续追捕</text>
-
-          <text x="640" y="568" text-anchor="middle" fill="#666673" font-size="10">🔁 继续追捕</text>
+          <line x1="400" y1="416" x2="500" y2="462" stroke="#3a3a44" stroke-width="1.2"/>
+          <text x="465" y="436" text-anchor="middle" fill="#d4a968" font-size="10">📋 等待任务刷新</text>
+          <polygon points="530,462 590,490 530,518 470,490" fill="#111118" stroke="#3a3a44" stroke-width="1.2"/>
+          <text x="530" y="494" text-anchor="middle" fill="#d4a968" font-size="11" font-weight="600">📦 任务刷新?</text>
+          <line x1="590" y1="490" x2="640" y2="490" stroke="#d4a968" stroke-width="1.2" marker-end="url(#ago)"/>
+          <rect x="644" y="472" width="100" height="36" rx="6" fill="#0d0d14" stroke="#d4a968" stroke-width="1.2"/>
+          <text x="694" y="495" text-anchor="middle" fill="#d4a968" font-size="11">🎁 获得奖励</text>
+          <path d="M644 490 L540 490 Q520 490 520 470 L520 306 Q520 286 500 286 L470 286" stroke="#d4a968" stroke-width="1" fill="none" stroke-dasharray="5,3" marker-end="url(#ago)"/>
+          <text x="530" y="560" text-anchor="middle" fill="#5a5a6e" font-size="9">🔁 继续追捕</text>
         </svg>
       </div>
     </div>
@@ -487,132 +461,81 @@
     <div class="divider"></div>
     <div class="footer">
       <span><i class="fas fa-exclamation-triangle"></i> 安全第一 · 享受追逐</span>
-      <span><i class="fas fa-hand-holding-heart"></i> β书院 · 宣传片</span>
+      <span><i class="fas fa-hand-holding-heart"></i> β书院 · E9-C18 拱桥</span>
+      <span><i class="fas fa-people-arrows"></i> A抓B / B抓C / C抓A</span>
     </div>
   </div>
 
   <script>
     (function() {
-      const canvas = document.getElementById('particles-canvas');
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      let particles = [];
-      const count = 80;
-      const maxDist = 110;
-      let mouseX = -1000;
-      let mouseY = -1000;
-      let targetMouseX = -1000;
-      let targetMouseY = -1000;
+      const c = document.getElementById('particles-canvas');
+      const ctx = c.getContext('2d');
+      let w, h, ps = [],
+        mx = -1000,
+        my = -1000,
+        tx = -1000,
+        ty = -1000;
+      const n = 60,
+        d = 100;
 
-      function resize() {
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width = w;
-        canvas.height = h;
-      }
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-        reset() {
-          this.x = Math.random() * w;
+      function rs() { w = innerWidth;
+        h = innerHeight;
+        c.width = w;
+        c.height = h; }
+      class P {
+        constructor() { this.rst(); }
+        rst() { this.x = Math.random() * w;
           this.y = Math.random() * h;
-          this.vx = (Math.random() - 0.5) * 0.35;
-          this.vy = (Math.random() - 0.5) * 0.35;
-          this.r = Math.random() * 1.4 + 0.5;
-          this.baseR = this.r;
-        }
-        update() {
-          const dx = this.x - mouseX;
-          const dy = this.y - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const mouseRadius = 140;
-
-          if (dist < mouseRadius) {
-            const force = (mouseRadius - dist) / mouseRadius;
-            const angle = Math.atan2(dy, dx);
-            const pushX = Math.cos(angle) * force * 1.2;
-            const pushY = Math.sin(angle) * force * 1.2;
-            this.x += pushX;
-            this.y += pushY;
-            this.r = this.baseR + force * 1.8;
-          } else {
-            this.r += (this.baseR - this.r) * 0.1;
-          }
-
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = (Math.random() - 0.5) * 0.3;
+          this.r = Math.random() * 1.2 + 0.4;
+          this.br = this.r; }
+        up() { const dx = this.x - mx,
+            dy = this.y - my,
+            ds = Math.sqrt(dx * dx + dy * dy),
+            rd = 130; if (ds < rd) { const f = (rd - ds) / rd,
+              a = Math.atan2(dy, dx);
+            this.x += Math.cos(a) * f * 1.2;
+            this.y += Math.sin(a) * f * 1.2;
+            this.r = this.br + f * 1.5; } else this.r += (this.br - this.r) * 0.08;
           this.x += this.vx;
-          this.y += this.vy;
-
-          if (this.x < -20) this.x = w + 20;
-          if (this.x > w + 20) this.x = -20;
-          if (this.y < -20) this.y = h + 20;
-          if (this.y > h + 20) this.y = -20;
-        }
-        draw(ctx) {
-          ctx.beginPath();
+          this.y += this.vy; if (this.x < -20) this.x = w + 20; if (this.x > w + 20) this.x = -20; if (this
+            .y < -20) this.y = h + 20; if (this.y > h + 20) this.y = -20; }
+        dr() { ctx.beginPath();
           ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(212,169,104,0.45)';
-          ctx.fill();
-        }
+          ctx.fillStyle = 'rgba(212,169,104,0.35)';
+          ctx.fill(); }
       }
 
-      function init() {
-        particles = [];
-        for (let i = 0; i < count; i++) particles.push(new Particle());
-      }
+      function init() { ps = [];
+        for (let i = 0; i < n; i++) ps.push(new P()); }
 
-      function drawLines() {
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < maxDist) {
-              const alpha = (1 - dist / maxDist) * 0.22;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(212,169,104,${alpha})`;
-              ctx.lineWidth = 0.4;
-              ctx.stroke();
-            }
-          }
-        }
+      function lines() { for (let i = 0; i < ps.length; i++)
+          for (let j = i + 1; j < ps.length; j++) { const dx = ps[i].x - ps[j].x,
+              dy = ps[i].y - ps[j].y,
+              ds = Math.sqrt(dx * dx + dy * dy); if (ds < d) { ctx.beginPath();
+              ctx.moveTo(ps[i].x, ps[i].y);
+              ctx.lineTo(ps[j].x, ps[j].y);
+              ctx.strokeStyle = `rgba(212,169,104,${(1-ds/d)*0.18})`;
+              ctx.lineWidth = 0.3;
+              ctx.stroke(); } } }
 
-        if (mouseX > 0 && mouseY > 0) {
-          ctx.beginPath();
-          ctx.arc(mouseX, mouseY, 50, 0, Math.PI * 2);
-          const glow = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 50);
-          glow.addColorStop(0, 'rgba(212,169,104,0.15)');
-          glow.addColorStop(1, 'rgba(212,169,104,0)');
-          ctx.fillStyle = glow;
-          ctx.fill();
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, w, h);
-        mouseX += (targetMouseX - mouseX) * 0.08;
-        mouseY += (targetMouseY - mouseY) * 0.08;
-        particles.forEach(p => { p.update(); p.draw(ctx); });
-        drawLines();
-        requestAnimationFrame(animate);
-      }
-
-      window.addEventListener('resize', () => { resize(); init(); });
-      window.addEventListener('mousemove', (e) => {
-        targetMouseX = e.clientX;
-        targetMouseY = e.clientY;
-      });
-      window.addEventListener('mouseleave', () => {
-        targetMouseX = -1000;
-        targetMouseY = -1000;
-      });
-
-      resize();
+      function anim() { ctx.clearRect(0, 0, w, h);
+        mx += (tx - mx) * 0.06;
+        my += (ty - my) * 0.06;
+        ps.forEach(p => { p.up();
+          p.dr(); });
+        lines();
+        requestAnimationFrame(anim); }
+      window.addEventListener('resize', () => { rs();
+        init(); });
+      window.addEventListener('mousemove', e => { tx = e.clientX;
+        ty = e.clientY; });
+      window.addEventListener('mouseleave', () => { tx = -1000;
+        ty = -1000; });
+      rs();
       init();
-      animate();
+      anim();
     })();
   </script>
 </body>
