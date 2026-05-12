@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>玩家须知 · 追逐游戏手册</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --bg-deep: #08080b;
+      --bg-card: #121216;
+      --bg-card-alt: #16161b;
+      --border: #1f1f26;
+      --border-hover: #2a2a33;
+      --text: #dddde4;
+      --text-secondary: #9d9da8;
+      --text-muted: #666673;
+      --accent: #d4a968;
+      --accent-soft: rgba(212, 169, 104, 0.1);
+      --accent-border: rgba(212, 169, 104, 0.25);
+      --tag-bg: rgba(212, 169, 104, 0.08);
+      --tag-text: #d4a968;
+      --radius-sm: 4px;
+      --radius: 10px;
+      --font: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-deep);
+      font-family: var(--font);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      overflow-x: auto;
+      min-width: 900px;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .handbook {
+      position: relative;
+      z-index: 1;
+      width: 860px;
+      padding: 36px 0 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      flex-shrink: 0;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .title-main {
+      font-size: 32px;
+      font-weight: 700;
+      color: #eeeef3;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    .title-main .accent-dot {
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pill i {
+      font-size: 8px;
+    }
+    .meta-line {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .meta-line span {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+    .meta-line i {
+      font-size: 8px;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .section-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #c5c5cf;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-alt);
+      transform: translateY(-2px);
+    }
+
+    .rule-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .rule-table td {
+      vertical-align: top;
+      padding: 0 0 6px 0;
+      font-size: 13px;
+      color: #b8b8c2;
+      line-height: 1.55;
+    }
+
+    .rule-table tr:last-child td {
+      padding-bottom: 0;
+    }
+
+    .td-dot {
+      width: 14px;
+      padding-right: 6px !important;
+    }
+
+    .rule-dot {
+      display: block;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 7px;
+      opacity: 0.5;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 1px 7px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      vertical-align: baseline;
+      line-height: 1.45;
+    }
+    .tag-red {
+      background: rgba(220, 90, 90, 0.12);
+      color: #dc5a5a;
+    }
+    .tag-green {
+      background: rgba(90, 200, 130, 0.1);
+      color: #5ac882;
+    }
+    .tag-blue {
+      background: rgba(90, 150, 220, 0.1);
+      color: #5a96dc;
+    }
+
+    .muted-text {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .flow-svg-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      display: flex;
+      justify-content: center;
+      transition: border-color 0.3s ease;
+    }
+    .flow-svg-container:hover {
+      border-color: var(--border-hover);
+    }
+    .flow-svg-container svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .footer {
+      display: flex;
+      gap: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding-top: 2px;
+    }
+    .footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+    }
+    .footer i {
+      font-size: 7px;
+      color: var(--accent);
+      opacity: 0.45;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="handbook">
+
+    <div class="header">
+      <div class="header-row">
+        <div class="title-main">玩家须知<span class="accent-dot"> · </span>手册</div>
+        <div class="pill"><i class="far fa-file-alt"></i> v1.3.1 · 草拟</div>
+      </div>
+      <div class="meta-line">
+        <span><i class="fas fa-pen"></i> 郏浩翔，薛杰特</span>
+        <span><i class="fas fa-users"></i> 郏浩翔，杨轩，袁王梓，薛杰特</span>
+        <span><i class="far fa-calendar"></i> 2026-05-06</span>
+      </div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="section-title">基本须知</div>
+      </div>
+      <div class="card">
+        <table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag">安全第一</span> 请在游戏前确认手机电量充足。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>追捕链：<span class="tag">A队 → B队</span> <span class="tag">B队 → C队</span> <span class="tag">C队 → A队</span></td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>被抓之后需 <span class="tag">交出手环</span>，立即返回 <span class="tag">重生点</span> 并向场控报告。返回路程中无法抓人也无法被抓。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>场地内随机出现 <span class="tag-red">轰炸区</span>（提前3分钟告知，持续5分钟）。停留轰炸区记为死亡，扣除 <span class="tag-red">10积分</span>，场控通知其回到重生点。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>随机分布奖励盒，贴有 <span class="tag">β书院 logo</span>，玩家拾取获得奖励。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>高德地图定位功能现场培训使用（加入群聊）。建议全场使用流量以保持联络流畅。</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-map-pin"></i></div>
+        <div class="section-title">场地限制</div>
+      </div>
+      <div class="card">
+        <table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-red">禁止长时间停留</span> 在建筑内部，仅能快速穿过。建筑内部 <span class="tag-red">禁止抓人</span>。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>避免吵闹，尤其在图书馆 / 学术环 / 寝室等附近。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>安全区禁止抓人。安全区范围：<span class="tag-green">重生点</span> <span class="tag-green">积分兑换处</span> <span class="tag-green">操场草坪</span> 以及随机刷新的部分任务点（staff 说明）。</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-coins"></i></div>
+        <div class="section-title">判断胜负 · 积分制</div>
+      </div>
+      <div class="card">
+        <table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>每个人把积分（筹码）带在身上。积分只能保留在玩家身上，<span class="tag">无法流动</span>。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>完成任务可获得积分或者技能。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>抓人时可 <span class="tag">占据对方携带的所有手环</span>。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>被抓方返回 <span class="tag">重生点（H4）</span> 领取一个新手环。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>设置商人 <span class="tag">staff</span>，可以用积分兑换技能。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>设置手环-积分兑换处 <span class="tag">E9-C18 拱桥</span>，抓人得到的手环可换成积分（<span class="tag">1手环 = 10积分</span>）。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>游戏时间到，所有人在积分兑换处集合，将所有手环兑换成积分。各队伍统计总积分，<span class="tag">最高者获胜</span>。</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-bolt"></i></div>
+        <div class="section-title">技能说明</div>
+      </div>
+      <div class="card">
+        <table class="rule-table">
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag">载具</span> 技能期间可骑滴滴青桔；注意不得在骑车的同时抓人。持续时间由 staff 告知。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag">隐身</span> 技能发动期间可关闭高德定位，时间结束后重新打开。持续时间由 staff 告知。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag">不死图腾</span> 被抓之后可选择发动技能（不交出手环也不返回重生点，而将「不死图腾」移交给抓捕者）；若发动技能，在2分钟内无法被同一个人再次抓捕。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-blue">场控帮助</span> 可与场控私下联系，获得额外信息。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-red">锤子</span> 可以反杀一个来抓捕的人。</td></tr>
+          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="muted-text">部分技能在被兑换前不公开。</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
+        <div class="section-title">流程说明</div>
+      </div>
+      <div class="flow-svg-container">
+        <svg viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#3a3a44"/>
+            </marker>
+            <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#cc6666"/>
+            </marker>
+            <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#66aa66"/>
+            </marker>
+            <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <polygon points="0,0 8,4 0,8" fill="#d4a968"/>
+            </marker>
+            <linearGradient id="gradStart" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4a968"/>
+              <stop offset="100%" stop-color="#b8894a"/>
+            </linearGradient>
+            <linearGradient id="gradEnd" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5ac882"/>
+              <stop offset="100%" stop-color="#3a9058"/>
+            </linearGradient>
+          </defs>
+
+          <rect x="340" y="10" width="140" height="44" rx="22" fill="#1a1a22" stroke="url(#gradStart)" stroke-width="2"/>
+          <text x="410" y="38" text-anchor="middle" fill="#eeeef3" font-size="15" font-weight="600">🏁 集合</text>
+
+          <line x1="410" y1="54" x2="410" y2="78" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+          <rect x="330" y="82" width="160" height="44" rx="8" fill="#14141c" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="410" y="110" text-anchor="middle" fill="#dddde4" font-size="14">📍 H4 重生点</text>
+
+          <line x1="410" y1="126" x2="410" y2="150" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+          <text x="410" y="170" text-anchor="middle" fill="#666673" font-size="11">三队派发</text>
+
+          <line x1="410" y1="175" x2="410" y2="190" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="100" y1="190" x2="720" y2="190" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="100" y1="190" x2="100" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+          <line x1="410" y1="190" x2="410" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+          <line x1="720" y1="190" x2="720" y2="206" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+
+          <rect x="10" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
+          <text x="100" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team A · J1 体育馆</text>
+
+          <rect x="320" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
+          <text x="410" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team B · H2 β书院</text>
+
+          <rect x="630" y="210" width="180" height="40" rx="6" fill="#161620" stroke="#3a3a44" stroke-width="1"/>
+          <text x="720" y="236" text-anchor="middle" fill="#bbbcc4" font-size="12">Team C · E13 教学中心</text>
+
+          <line x1="100" y1="250" x2="100" y2="275" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="410" y1="250" x2="410" y2="275" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="720" y1="250" x2="720" y2="275" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="100" y1="275" x2="720" y2="275" stroke="#3a3a44" stroke-width="1"/>
+          <line x1="410" y1="275" x2="410" y2="290" stroke="#3a3a44" stroke-width="1" marker-end="url(#arrowGray)"/>
+
+          <polygon points="410,294 470,324 410,354 350,324" fill="#181820" stroke="#4a4a55" stroke-width="1.5"/>
+          <text x="410" y="328" text-anchor="middle" fill="#eeeef3" font-size="13" font-weight="600">⏱️ 游戏时间?</text>
+
+          <line x1="470" y1="324" x2="620" y2="324" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+          <text x="545" y="316" text-anchor="middle" fill="#5ac882" font-size="11">✅ 时间到</text>
+
+          <rect x="624" y="304" width="120" height="40" rx="6" fill="#14141c" stroke="#3a3a44" stroke-width="1.5"/>
+          <text x="684" y="330" text-anchor="middle" fill="#dddde4" font-size="13">💰 结算手环</text>
+
+          <line x1="684" y1="344" x2="684" y2="365" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+          <rect x="604" y="369" width="160" height="44" rx="22" fill="#1a1a22" stroke="url(#gradEnd)" stroke-width="2"/>
+          <text x="684" y="397" text-anchor="middle" fill="#5ac882" font-size="14" font-weight="600">🎉 游戏结束和奖励</text>
+
+          <line x1="410" y1="354" x2="410" y2="395" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+          <text x="424" y="380" fill="#ccc" font-size="11">⏳ 时间未到</text>
+
+          <polygon points="410,400 480,430 410,460 340,430" fill="#181820" stroke="#4a4a55" stroke-width="1.5"/>
+          <text x="410" y="434" text-anchor="middle" fill="#eeeef3" font-size="13" font-weight="600">🎯 抓捕结果</text>
+
+          <line x1="340" y1="430" x2="200" y2="430" stroke="#cc6666" stroke-width="1.5"/>
+          <text x="270" y="422" text-anchor="middle" fill="#cc9999" font-size="11">❌ 被抓捕</text>
+
+          <rect x="40" y="410" width="160" height="40" rx="6" fill="#1c1414" stroke="#663333" stroke-width="1.2"/>
+          <text x="120" y="436" text-anchor="middle" fill="#cc9999" font-size="13">🔴 交出手环</text>
+
+          <path d="M40 430 L25 430 L25 104 L320 104" stroke="#cc6666" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowRed)"/>
+          <text x="20" y="270" text-anchor="middle" fill="#cc9999" font-size="10" transform="rotate(-90,20,270)">返回重生点</text>
+
+          <line x1="410" y1="460" x2="410" y2="495" stroke="#3a3a44" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+          <text x="424" y="483" fill="#99cc99" font-size="11">✅ 成功抓捕</text>
+
+          <rect x="315" y="499" width="190" height="40" rx="6" fill="#141c14" stroke="#336633" stroke-width="1.2"/>
+          <text x="410" y="525" text-anchor="middle" fill="#99cc99" font-size="13">🟢 收取手环</text>
+
+          <path d="M505 519 L560 519 Q580 519 580 499 L580 324 Q580 304 560 304 L480 304" stroke="#66aa66" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+          <text x="590" y="420" text-anchor="middle" fill="#99cc99" font-size="10">继续游戏</text>
+
+          <line x1="480" y1="440" x2="600" y2="490" stroke="#3a3a44" stroke-width="1.2"/>
+          <text x="555" y="462" text-anchor="middle" fill="#d4a968" font-size="11">📋 等待任务刷新</text>
+
+          <polygon points="640,490 700,520 640,550 580,520" fill="#181820" stroke="#4a4a55" stroke-width="1.2"/>
+          <text x="640" y="524" text-anchor="middle" fill="#d4a968" font-size="12" font-weight="600">📦 任务刷新?</text>
+
+          <line x1="700" y1="520" x2="760" y2="520" stroke="#d4a968" stroke-width="1.2" marker-end="url(#arrowGold)"/>
+          <text x="730" y="513" text-anchor="middle" fill="#d4a968" font-size="10">前往任务点</text>
+
+          <rect x="764" y="500" width="100" height="40" rx="6" fill="#14141c" stroke="#d4a968" stroke-width="1.2"/>
+          <text x="814" y="526" text-anchor="middle" fill="#d4a968" font-size="12">🎁 获得奖励</text>
+
+          <path d="M764 520 L690 520 Q670 520 670 500 L670 324 Q670 304 650 304 L550 304" stroke="#d4a968" stroke-width="1" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowGold)"/>
+          <text x="570" y="295" text-anchor="middle" fill="#d4a968" font-size="10">🔁 继续追捕</text>
+
+          <text x="640" y="568" text-anchor="middle" fill="#666673" font-size="10">🔁 继续追捕</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="footer">
+      <span><i class="fas fa-exclamation-triangle"></i> 安全第一 · 享受追逐</span>
+      <span><i class="fas fa-hand-holding-heart"></i> β书院 · 宣传片</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      let particles = [];
+      const count = 80;
+      const maxDist = 110;
+      let mouseX = -1000;
+      let mouseY = -1000;
+      let targetMouseX = -1000;
+      let targetMouseY = -1000;
+
+      function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.35;
+          this.vy = (Math.random() - 0.5) * 0.35;
+          this.r = Math.random() * 1.4 + 0.5;
+          this.baseR = this.r;
+        }
+        update() {
+          const dx = this.x - mouseX;
+          const dy = this.y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const mouseRadius = 140;
+
+          if (dist < mouseRadius) {
+            const force = (mouseRadius - dist) / mouseRadius;
+            const angle = Math.atan2(dy, dx);
+            const pushX = Math.cos(angle) * force * 1.2;
+            const pushY = Math.sin(angle) * force * 1.2;
+            this.x += pushX;
+            this.y += pushY;
+            this.r = this.baseR + force * 1.8;
+          } else {
+            this.r += (this.baseR - this.r) * 0.1;
+          }
+
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < -20) this.x = w + 20;
+          if (this.x > w + 20) this.x = -20;
+          if (this.y < -20) this.y = h + 20;
+          if (this.y > h + 20) this.y = -20;
+        }
+        draw(ctx) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(212,169,104,0.45)';
+          ctx.fill();
+        }
+      }
+
+      function init() {
+        particles = [];
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+      }
+
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              const alpha = (1 - dist / maxDist) * 0.22;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(212,169,104,${alpha})`;
+              ctx.lineWidth = 0.4;
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (mouseX > 0 && mouseY > 0) {
+          ctx.beginPath();
+          ctx.arc(mouseX, mouseY, 50, 0, Math.PI * 2);
+          const glow = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 50);
+          glow.addColorStop(0, 'rgba(212,169,104,0.15)');
+          glow.addColorStop(1, 'rgba(212,169,104,0)');
+          ctx.fillStyle = glow;
+          ctx.fill();
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        mouseX += (targetMouseX - mouseX) * 0.08;
+        mouseY += (targetMouseY - mouseY) * 0.08;
+        particles.forEach(p => { p.update(); p.draw(ctx); });
+        drawLines();
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', () => { resize(); init(); });
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        targetMouseX = -1000;
+        targetMouseY = -1000;
+      });
+
+      resize();
+      init();
+      animate();
+    })();
+  </script>
+</body>
+</html>
