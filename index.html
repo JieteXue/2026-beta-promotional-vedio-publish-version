@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>β书院 · 追逐游戏</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --bg-deep: #08080b;
+      --text: #dddde4;
+      --text-muted: #666673;
+      --accent-gold: #d4a968;
+      --accent-blue: #5b9bd5;
+      --font: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-deep);
+      font-family: var(--font);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .logo-area {
+      text-align: center;
+    }
+
+    .logo-icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .title {
+      font-size: 42px;
+      font-weight: 700;
+      color: #eeeef3;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .cards {
+      display: flex;
+      gap: 28px;
+    }
+
+    .entry-card {
+      width: 320px;
+      padding: 40px 32px;
+      border-radius: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .entry-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 16px;
+    }
+
+    .card-player {
+      background: #121216;
+      border: 1px solid #1f1f26;
+    }
+    .card-player::before {
+      background: radial-gradient(circle at center, rgba(212, 169, 104, 0.08) 0%, transparent 70%);
+    }
+    .card-player:hover {
+      border-color: rgba(212, 169, 104, 0.4);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(212, 169, 104, 0.1);
+    }
+    .card-player:hover::before {
+      opacity: 1;
+    }
+
+    .card-staff {
+      background: #0d1117;
+      border: 1px solid #1a2435;
+    }
+    .card-staff::before {
+      background: radial-gradient(circle at center, rgba(91, 155, 213, 0.08) 0%, transparent 70%);
+    }
+    .card-staff:hover {
+      border-color: rgba(91, 155, 213, 0.4);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(91, 155, 213, 0.1);
+    }
+    .card-staff:hover::before {
+      opacity: 1;
+    }
+
+    .entry-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .card-player .entry-icon {
+      color: #d4a968;
+    }
+    .card-staff .entry-icon {
+      color: #5b9bd5;
+    }
+
+    .entry-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .card-player .entry-title {
+      color: #e8d5b0;
+    }
+    .card-staff .entry-title {
+      color: #b0cfe8;
+    }
+
+    .entry-desc {
+      font-size: 13px;
+      color: #6b7a90;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .entry-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+      transition: gap 0.3s ease;
+    }
+    .card-player .entry-arrow {
+      color: #d4a968;
+    }
+    .card-staff .entry-arrow {
+      color: #5b9bd5;
+    }
+    .entry-card:hover .entry-arrow {
+      gap: 12px;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #4a5568;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 750px) {
+      .cards {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .entry-card {
+        width: 280px;
+        padding: 30px 24px;
+      }
+      .title {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="container">
+    <div class="logo-area">
+      <span class="logo-icon">🏛️</span>
+      <div class="title">β书院 · 追逐游戏</div>
+      <div class="subtitle">BETA COLLEGE · CHASE GAME</div>
+    </div>
+
+    <div class="cards">
+      <a href="player-guide.html" class="entry-card card-player">
+        <span class="entry-icon">🎮</span>
+        <div class="entry-title">玩家入口</div>
+        <div class="entry-desc">查看游戏规则、积分制度<br>技能说明与流程指引</div>
+        <span class="entry-arrow">进入手册 <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="staff-guide.html" class="entry-card card-staff">
+        <span class="entry-icon">🛡️</span>
+        <div class="entry-title">工作人员入口</div>
+        <div class="entry-desc">查看执行规范、职责分工<br>操作流程与群聊规范</div>
+        <span class="entry-arrow">进入手册 <i class="fas fa-arrow-right"></i></span>
+      </a>
+    </div>
+
+    <div class="footer-text">β书院 · 2026</div>
+  </div>
+
+  <script>
+    (function() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      let particles = [];
+      const count = 100;
+      const maxDist = 120;
+      let mouseX = -1000;
+      let mouseY = -1000;
+      let targetMouseX = -1000;
+      let targetMouseY = -1000;
+
+      function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
+          this.r = Math.random() * 1.5 + 0.5;
+          this.baseR = this.r;
+          this.color = Math.random() > 0.5 ? 'rgba(212,169,104,' : 'rgba(91,155,213,';
+        }
+        update() {
+          const dx = this.x - mouseX;
+          const dy = this.y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const mouseRadius = 160;
+
+          if (dist < mouseRadius) {
+            const force = (mouseRadius - dist) / mouseRadius;
+            const angle = Math.atan2(dy, dx);
+            this.x += Math.cos(angle) * force * 1.5;
+            this.y += Math.sin(angle) * force * 1.5;
+            this.r = this.baseR + force * 2;
+          } else {
+            this.r += (this.baseR - this.r) * 0.08;
+          }
+
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < -20) this.x = w + 20;
+          if (this.x > w + 20) this.x = -20;
+          if (this.y < -20) this.y = h + 20;
+          if (this.y > h + 20) this.y = -20;
+        }
+        draw(ctx) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = this.color + '0.45)';
+          ctx.fill();
+        }
+      }
+
+      function init() {
+        particles = [];
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+      }
+
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              const alpha = (1 - dist / maxDist) * 0.18;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(150,150,170,${alpha})`;
+              ctx.lineWidth = 0.35;
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (mouseX > 0 && mouseY > 0) {
+          ctx.beginPath();
+          ctx.arc(mouseX, mouseY, 60, 0, Math.PI * 2);
+          const glow = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 60);
+          glow.addColorStop(0, 'rgba(180,160,200,0.08)');
+          glow.addColorStop(1, 'rgba(180,160,200,0)');
+          ctx.fillStyle = glow;
+          ctx.fill();
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        mouseX += (targetMouseX - mouseX) * 0.06;
+        mouseY += (targetMouseY - mouseY) * 0.06;
+        particles.forEach(p => { p.update(); p.draw(ctx); });
+        drawLines();
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', () => { resize(); init(); });
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = e.clientX;
+        targetMouseY = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        targetMouseX = -1000;
+        targetMouseY = -1000;
+      });
+
+      resize();
+      init();
+      animate();
+    })();
+  </script>
+</body>
+</html>
