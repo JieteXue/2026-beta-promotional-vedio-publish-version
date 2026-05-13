@@ -448,7 +448,7 @@
         info.textContent = '请查阅Staff执行规范';
         badge.innerHTML = '<span class="result-role role-staff">STAFF</span>';
         buttons.innerHTML = `
-          <div class="link-btn btn-staff" onclick="goTo('staff-guide.html')">
+          <div class="link-btn btn-staff" onclick="goToStaff('${name}')">
             <span class="icon">📋</span> 进入员工手册
           </div>`;
       } else {
@@ -462,10 +462,14 @@
           <div class="link-btn btn-player" onclick="goTo('player-guide.html')">
             <span class="icon">📖</span> 玩家手册
           </div>
-          <div class="link-btn btn-staff" onclick="goTo('staff-guide.html')">
+          <div class="link-btn btn-staff" onclick="goToStaff('${name}')">
             <span class="icon">📋</span> 员工手册
           </div>`;
       }
+    }
+
+    function goToStaff(name) {
+      window.location.href = `staff-guide.html?name=${encodeURIComponent(name)}`;
     }
 
     function goTo(url) {

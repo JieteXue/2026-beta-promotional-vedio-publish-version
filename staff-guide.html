@@ -23,6 +23,8 @@
       --accent-border: rgba(91,155,213,0.2);
       --tag-bg: rgba(91,155,213,0.08);
       --tag-text: #6aa8e0;
+      --highlight-bg: rgba(91,155,213,0.12);
+      --highlight-border: #5b9bd5;
       --radius-sm: 6px;
       --radius: 14px;
       --radius-lg: 20px;
@@ -137,6 +139,53 @@
       background: var(--border);
       width: 100%;
       margin-top: 4px;
+    }
+
+    /* 个人任务高亮卡片 */
+    .my-task-card {
+      background: linear-gradient(135deg, var(--highlight-bg), rgba(91,155,213,0.03));
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin: 12px 0 8px 0;
+      box-shadow: 0 0 20px rgba(91,155,213,0.15);
+    }
+    .my-task-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .my-task-icon {
+      font-size: 32px;
+    }
+    .my-task-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .my-task-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .task-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .task-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #c0c8d4;
+    }
+    .task-list li i {
+      color: var(--accent);
+      margin-top: 3px;
+      font-size: 11px;
     }
 
     .section {
@@ -281,6 +330,10 @@
       border-color: #253550;
       background: #0c1119;
     }
+    .role-card.highlight {
+      border: 2px solid var(--accent);
+      background: var(--highlight-bg);
+    }
     .role-icon {
       font-size: 18px;
       margin-bottom: 4px;
@@ -395,325 +448,518 @@
 
   <canvas id="particles-canvas"></canvas>
 
-  <div class="handbook">
-
-    <!-- ==================== 首页 ==================== -->
-    <div id="page-home" class="detail-page active">
-      <div class="header">
-        <div class="header-row">
-          <div class="title-main">Staff执行规范<span class="accent-dot"> · </span>内部手册</div>
-          <div>
-            <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
-            <span class="pill archive" style="margin-left:4px;"><i class="fas fa-archive"></i> 归档</span>
-          </div>
-        </div>
-        <div class="meta-line">
-          <span><i class="fas fa-pen"></i> 薛杰特</span>
-          <span><i class="far fa-calendar"></i> 2026-05-06</span>
-        </div>
-        <div class="divider"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-users-cog"></i></div>
-          <div class="section-title">Staff 类型 · 点击查看详情</div>
-        </div>
-        <div class="card">
-          <div class="staff-roles">
-            <div class="role-card" onclick="showPage('page-npc')">
-              <div class="role-icon">🎭</div>
-              <div class="role-name">任务交互NPC</div>
-              <div class="role-desc">发布任务、接待玩家</div>
-            </div>
-            <div class="role-card" onclick="showPage('page-inspector')">
-              <div class="role-icon">🔍</div>
-              <div class="role-name">督查与回收</div>
-              <div class="role-desc">监督违规、回收奖励盒</div>
-            </div>
-            <div class="role-card" onclick="showPage('page-controller')">
-              <div class="role-icon">📡</div>
-              <div class="role-name">场控</div>
-              <div class="role-desc">监督者 + 交互</div>
-            </div>
-            <div class="role-card" onclick="showPage('page-photographer')">
-              <div class="role-icon">📷</div>
-              <div class="role-name">摄影</div>
-              <div class="role-desc">记录活动现场影像</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon"><i class="fas fa-comments"></i></div>
-          <div class="section-title">群聊规范</div>
-        </div>
-        <div class="card">
-          <table class="rule-table">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-purple">i西湖staff群聊</span></td></tr>
-          </table>
-          <div class="sub-card">
-            <div class="sub-card-title"><i class="fas fa-bullhorn"></i> 听令指挥群聊</div>
-            <table class="rule-table">
-              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>此群聊用于场控发布命令与沟通，包括疑问</td></tr>
-            </table>
-          </div>
-          <div class="sub-card">
-            <div class="sub-card-title"><i class="fas fa-clipboard-list"></i> 玩家状态记录群聊</div>
-            <table class="rule-table">
-              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>此群聊仅能用于更新玩家状态（技能持续时间等）</td></tr>
-            </table>
-          </div>
-          <table class="rule-table" style="margin-top:8px;">
-            <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">高德群聊</span></td></tr>
-          </table>
-          <div class="sub-card">
-            <table class="rule-table">
-              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>群昵称统一格式：<span class="tag">staff-[your name]</span></td></tr>
-              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>发送信息需要以 <span class="tag-amber">语音+文字</span> 的方式</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ==================== NPC 详情页 ==================== -->
-    <div id="page-npc" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-      <div class="header">
-        <div class="header-row"><div class="title-main">🎭 任务交互NPC</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div>
-        <div class="divider"></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-circle"></i></div><div class="section-title">无任务阶段</div></div>
-        <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>指导提示，等待游戏开始（场控发令）</td></tr></table></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-play-circle"></i></div><div class="section-title">有任务阶段</div></div>
-        <div class="card"><table class="rule-table">
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>听场控命令，查询任务地点并前往</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到任务地点之后 <span class="tag-teal">开启定位</span>，划定任务圈</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在高德地图发布 <span class="tag-amber">文字+语音</span> 的提示，声明任务内容和持续时长</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>按照约定接待玩家</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在 <span class="tag-purple">玩家状态记录群聊</span> 中报告获取技能</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>倒计时阶段发布语音和文字提醒</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>时间到 <span class="tag-rose">取消画圈和自身定位</span>，高德地图文字+语音声明结束任务</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>回到 <span class="tag">H4</span> 等待分派任务</td></tr>
-        </table></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">NPC任务流程</div></div>
-        <div class="flow-box">
-          <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="ab" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
-              <marker id="ag2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#3a4555"/></marker>
-            </defs>
-            <rect x="30" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="90" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📋 等待场控指令</text>
-            <line x1="150" y1="70" x2="195" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
-            <rect x="199" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="259" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📩 接收任务地点</text>
-            <line x1="319" y1="70" x2="364" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
-            <rect x="368" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="428" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">🏃 前往任务地点</text>
-            <line x1="428" y1="90" x2="428" y2="124" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
-            <rect x="328" y="128" width="200" height="40" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="428" y="148" text-anchor="middle" fill="#6aa8e0" font-size="11">📍 开启定位 · 划定任务圈</text>
-            <text x="428" y="162" text-anchor="middle" fill="#6aa8e0" font-size="10">发布语音+文字提示</text>
-            <line x1="428" y1="168" x2="428" y2="200" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
-            <rect x="328" y="204" width="200" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="428" y="229" text-anchor="middle" fill="#bcc5d0" font-size="11">🤝 接待玩家 · 报告技能</text>
-            <path d="M528 224 L580 224 L580 70 L500 70" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab)"/>
-            <text x="590" y="150" text-anchor="middle" fill="#5b9bd5" font-size="9">返回H4等待新任务</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- ==================== 督查详情页 ==================== -->
-    <div id="page-inspector" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-      <div class="header"><div class="header-row"><div class="title-main">🔍 督查与回收奖励盒</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-clipboard-check"></i></div><div class="section-title">职责说明</div></div>
-        <div class="card"><table class="rule-table">
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>监督场上是否有人违规（<span class="tag-rose">违规骑车</span>、<span class="tag-rose">持续在楼内等待</span>）</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>根据场控指示（私聊）<span class="tag-amber">回收奖励盒</span> 并 <span class="tag-teal">记录回收盒子的编号</span></td></tr>
-        </table><div style="text-align:right;margin-top:4px;"><span class="muted-text" style="font-size:10px;">——你哥</span></div></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">督查流程</div></div>
-        <div class="flow-box">
-          <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="ab3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
-              <marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#dc6e82"/></marker>
-            </defs>
-            <rect x="20" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="95" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">👀 巡逻监督</text>
-            <text x="95" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">违规骑车/楼内逗留</text>
-            <line x1="170" y1="102" x2="250" y2="102" stroke="#dc6e82" stroke-width="1.5" marker-end="url(#ar2)"/>
-            <text x="210" y="95" text-anchor="middle" fill="#dc6e82" font-size="9">发现违规</text>
-            <rect x="254" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="329" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">⚠️ 记录并上报</text>
-            <text x="329" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">通知场控处理</text>
-            <path d="M329 124 L329 155 L95 155 L95 134" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab3)"/>
-            <text x="210" y="168" text-anchor="middle" fill="#5b9bd5" font-size="9">继续巡逻</text>
-            <rect x="460" y="80" width="190" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="555" y="100" text-anchor="middle" fill="#6aa8e0" font-size="11">📦 听从场控私聊指令</text>
-            <text x="555" y="116" text-anchor="middle" fill="#6aa8e0" font-size="10">回收奖励盒 + 记录编号</text>
-            <line x1="404" y1="102" x2="450" y2="102" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab3)"/>
-            <text x="427" y="95" text-anchor="middle" fill="#5b9bd5" font-size="9">收到指令</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- ==================== 场控详情页 ==================== -->
-    <div id="page-controller" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-      <div class="header"><div class="header-row"><div class="title-main">📡 场控</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-eye"></i></div><div class="section-title">监督者</div></div>
-        <div class="card"><table class="rule-table">
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>对比玩家状态记录群中的状态提示</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">接收</span> 并 <span class="tag-teal">记录</span> 场上玩家发动的技能信息</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到时间提醒玩家</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>辅助交互场控（查看地图等）</td></tr>
-        </table></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-headset"></i></div><div class="section-title">交互</div></div>
-        <div class="card"><table class="rule-table">
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>查看私信，回复玩家</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>指挥 <span class="tag-purple">任务交互NPC</span></td></tr>
-        </table></div>
-      </div>
-    </div>
-
-    <!-- ==================== 摄影详情页 ==================== -->
-    <div id="page-photographer" class="detail-page">
-      <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-      <div class="header"><div class="header-row"><div class="title-main">📷 摄影</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-camera-retro"></i></div><div class="section-title">职责说明</div></div>
-        <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>全程记录活动现场影像资料</td></tr></table></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-tasks"></i></div><div class="section-title">工作要点</div></div>
-        <div class="card"><table class="rule-table">
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>抓拍精彩瞬间：追捕、任务交互、玩家反应</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄团队合影与活动花絮</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>注意<span class="tag-teal">不影响游戏正常进行</span>，保持适当距离</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄时<span class="tag-rose">避免使用闪光灯</span>干扰玩家</td></tr>
-          <tr><td class="td-dot"><span class="rule-dot"></span></td><td>活动结束后整理素材并<span class="tag-amber">上传至指定位置</span></td></tr>
-        </table></div>
-      </div>
-      <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">拍摄流程</div></div>
-        <div class="flow-box">
-          <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="ab4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
-            </defs>
-            <rect x="15" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="72" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📷 活动开始</text>
-            <text x="72" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">准备设备</text>
-            <line x1="130" y1="67" x2="185" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
-            <rect x="189" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="246" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">🎬 全程跟拍</text>
-            <text x="246" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">精彩瞬间+花絮</text>
-            <line x1="304" y1="67" x2="359" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
-            <rect x="363" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
-            <text x="420" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📸 重点拍摄</text>
-            <text x="420" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">任务点+抓捕</text>
-            <line x1="478" y1="67" x2="533" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
-            <rect x="537" y="45" width="120" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
-            <text x="597" y="65" text-anchor="middle" fill="#6aa8e0" font-size="11">📤 整理上传</text>
-            <text x="597" y="80" text-anchor="middle" fill="#6aa8e0" font-size="10">素材归档</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-    <div class="footer">
-      <span><i class="fas fa-lock"></i> 内部文档 · 仅限Staff查阅</span>
-      <span><i class="fas fa-code-branch"></i> v1.1.0 · 归档</span>
-      <span><i class="fas fa-user-shield"></i> 薛杰特</span>
-    </div>
+  <div class="handbook" id="handbookRoot">
+    <!-- 动态内容会插入此处，保留原有所有公共部分 -->
   </div>
 
   <script>
-    function showPage(id) {
+    // ==================== 岗位任务定义（完整版） ====================
+    const ROLE_TASKS = {
+      '任务交互': {
+        icon: '🎭',
+        name: '任务交互NPC',
+        tasks: [
+          '📋 无任务阶段：指导提示，等待游戏开始（场控发令）',
+          '📍 有任务阶段：听场控命令，查询任务地点并前往',
+          '🔘 到任务地点后开启定位，划定任务圈',
+          '📢 在高德地图发布「文字+语音」提示，声明任务内容和持续时长',
+          '🤝 按照约定接待玩家',
+          '📝 在「玩家状态记录群聊」中报告获取技能',
+          '⏰ 倒计时阶段发布语音和文字提醒',
+          '🚫 时间到后取消画圈和自身定位，高德地图声明结束任务',
+          '🏠 回到 H4 等待分派新任务'
+        ]
+      },
+      '督查与回收': {
+        icon: '🔍',
+        name: '督查与回收',
+        tasks: [
+          '👀 监督场上是否有人违规（违规骑车、持续在楼内等待）',
+          '📝 发现违规后记录并上报场控',
+          '📦 听从场控私聊指令，回收奖励盒',
+          '🔢 记录回收盒子的编号，上报给场控'
+        ]
+      },
+      '场控': {
+        icon: '📡',
+        name: '场控',
+        tasks: [
+          '👁️ 监督者：对比玩家状态记录群中的状态提示',
+          '📋 接收并记录场上玩家发动的技能信息',
+          '⏱️ 到时间提醒玩家',
+          '🗺️ 辅助交互场控（查看地图等）',
+          '💬 查看私信，回复玩家',
+          '🎭 指挥任务交互NPC'
+        ]
+      },
+      '摄影': {
+        icon: '📷',
+        name: '摄影',
+        tasks: [
+          '🎬 全程记录活动现场影像资料',
+          '📸 抓拍精彩瞬间：追捕、任务交互、玩家反应',
+          '👥 拍摄团队合影与活动花絮',
+          '🚶 注意不影响游戏正常进行，保持适当距离',
+          '🚫 避免使用闪光灯干扰玩家',
+          '📤 活动结束后整理素材并上传至指定位置'
+        ]
+      },
+      '积分兑换处': {
+        icon: '💰',
+        name: '积分兑换处',
+        tasks: [
+          '📍 常驻位置：E9-C18 拱桥（手环-积分兑换处）',
+          '🔄 接收玩家用抓人获得的手环兑换积分（1手环 = 10积分）',
+          '🏆 游戏时间结束后，组织所有人在积分兑换处集合',
+          '📊 协助各队伍统计总积分，核算最终获胜队伍',
+          '🎁 发放获胜队伍奖励',
+          '⚠️ 安全区范围内禁止抓人，维持现场秩序'
+        ]
+      }
+    };
+
+    // ==================== 从 staff-list.txt 读取职务分配 ====================
+    let staffAssignment = {}; // { '姓名': '职务' }
+    let loaded = false;
+
+    async function loadStaffAssignment() {
+      try {
+        const response = await fetch('staff-list.txt');
+        const text = await response.text();
+        const lines = text.split('\n');
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith('#')) continue;
+          const parts = trimmed.split('|');
+          if (parts.length === 2) {
+            const name = parts[0].trim();
+            const role = parts[1].trim();
+            if (ROLE_TASKS[role]) {
+              staffAssignment[name] = role;
+            } else {
+              console.warn(`未知职务: ${role} for ${name}`);
+            }
+          }
+        }
+        loaded = true;
+        console.log('已加载Staff分配:', staffAssignment);
+      } catch (e) {
+        console.error('加载 staff-list.txt 失败:', e);
+        loaded = true; // 避免无限等待
+      }
+    }
+
+    // 获取URL参数中的姓名
+    function getStaffNameFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('name') || '';
+    }
+
+    // 渲染完整页面（保留所有公共部分 + 高亮个人任务）
+    async function renderFullPage() {
+      await loadStaffAssignment();
+      
+      const staffName = getStaffNameFromURL();
+      const myRole = staffAssignment[staffName] || null;
+      const myRoleData = myRole ? ROLE_TASKS[myRole] : null;
+      
+      const container = document.getElementById('handbookRoot');
+      if (!container) return;
+
+      // 构建个人任务高亮区域
+      let myTaskHtml = '';
+      if (myRoleData && staffName) {
+        const taskItems = myRoleData.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join('');
+        myTaskHtml = `
+          <div class="my-task-card">
+            <div class="my-task-header">
+              <div class="my-task-icon">${myRoleData.icon}</div>
+              <div>
+                <div class="my-task-title">✨ 您的专属任务 · ${myRoleData.name}</div>
+                <div class="my-task-sub">工作人员：${staffName}</div>
+              </div>
+            </div>
+            <ul class="task-list">
+              ${taskItems}
+            </ul>
+          </div>
+        `;
+      } else if (staffName) {
+        myTaskHtml = `
+          <div class="my-task-card" style="border-color:#dc6e82;">
+            <div class="my-task-header">
+              <div class="my-task-icon">⚠️</div>
+              <div>
+                <div class="my-task-title" style="color:#dc6e82;">未找到职务分配</div>
+                <div class="my-task-sub">工作人员：${staffName}，请在 staff-list.txt 中配置 姓名|职务</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 构建岗位卡片（高亮当前用户岗位）
+      let rolesHtml = '';
+      for (const [roleKey, roleData] of Object.entries(ROLE_TASKS)) {
+        const isHighlight = (myRole === roleKey);
+        rolesHtml += `
+          <div class="role-card ${isHighlight ? 'highlight' : ''}" onclick="showDetail('${roleKey}')">
+            <div class="role-icon">${roleData.icon}</div>
+            <div class="role-name">${roleData.name}</div>
+            <div class="role-desc">${roleData.tasks.length}项职责</div>
+          </div>
+        `;
+      }
+
+      // 保存 staffName 供详情页使用
+      window.currentStaffName = staffName;
+
+      // 完整HTML（保留所有原有公共内容）
+      container.innerHTML = `
+        <!-- ==================== 首页 ==================== -->
+        <div id="page-home" class="detail-page active">
+          <div class="header">
+            <div class="header-row">
+              <div class="title-main">Staff执行规范<span class="accent-dot"> · </span>内部手册</div>
+              <div>
+                <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
+                <span class="pill archive" style="margin-left:4px;"><i class="fas fa-archive"></i> 归档</span>
+              </div>
+            </div>
+            <div class="meta-line">
+              <span><i class="fas fa-pen"></i> 薛杰特</span>
+              <span><i class="far fa-calendar"></i> 2026-05-06</span>
+            </div>
+            <div class="divider"></div>
+          </div>
+
+          <!-- 个人任务高亮区域 -->
+          ${myTaskHtml}
+
+          <div class="section">
+            <div class="section-head">
+              <div class="section-icon"><i class="fas fa-users-cog"></i></div>
+              <div class="section-title">Staff 类型 · 点击查看详情</div>
+            </div>
+            <div class="card">
+              <div class="staff-roles">
+                ${rolesHtml}
+              </div>
+            </div>
+          </div>
+
+          <!-- 群聊规范（公共部分，保留原有内容） -->
+          <div class="section">
+            <div class="section-head">
+              <div class="section-icon"><i class="fas fa-comments"></i></div>
+              <div class="section-title">群聊规范</div>
+            </div>
+            <div class="card">
+              <table class="rule-table">
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-purple">i西湖staff群聊</span></td></tr>
+              </table>
+              <div class="sub-card">
+                <div class="sub-card-title"><i class="fas fa-bullhorn"></i> 听令指挥群聊</div>
+                <table class="rule-table">
+                  <tr><td class="td-dot"><span class="rule-dot"></span></td><td>此群聊用于场控发布命令与沟通，包括疑问</td></tr>
+                </table>
+              </div>
+              <div class="sub-card">
+                <div class="sub-card-title"><i class="fas fa-clipboard-list"></i> 玩家状态记录群聊</div>
+                <table class="rule-table">
+                  <tr><td class="td-dot"><span class="rule-dot"></span></td><td>此群聊仅能用于更新玩家状态（技能持续时间等）</td></tr>
+                </table>
+              </div>
+              <table class="rule-table" style="margin-top:8px;">
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">高德群聊</span></td></tr>
+              </table>
+              <div class="sub-card">
+                <table class="rule-table">
+                  <tr><td class="td-dot"><span class="rule-dot"></span></td><td>群昵称统一格式：<span class="tag">staff-[your name]</span></td></tr>
+                  <tr><td class="td-dot"><span class="rule-dot"></span></td><td>发送信息需要以 <span class="tag-amber">语音+文字</span> 的方式</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== NPC 详情页 ==================== -->
+        <div id="page-npc" class="detail-page">
+          <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+          <div class="header">
+            <div class="header-row"><div class="title-main">🎭 任务交互NPC</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div>
+            <div class="divider"></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-circle"></i></div><div class="section-title">无任务阶段</div></div>
+            <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>指导提示，等待游戏开始（场控发令）</td></tr></table></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-play-circle"></i></div><div class="section-title">有任务阶段</div></div>
+            <div class="card"><table class="rule-table">
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>听场控命令，查询任务地点并前往</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到任务地点之后 <span class="tag-teal">开启定位</span>，划定任务圈</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在高德地图发布 <span class="tag-amber">文字+语音</span> 的提示，声明任务内容和持续时长</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>按照约定接待玩家</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>在 <span class="tag-purple">玩家状态记录群聊</span> 中报告获取技能</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>倒计时阶段发布语音和文字提醒</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>时间到 <span class="tag-rose">取消画圈和自身定位</span>，高德地图文字+语音声明结束任务</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>回到 <span class="tag">H4</span> 等待分派任务</td></tr>
+            </table></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">NPC任务流程</div></div>
+            <div class="flow-box">
+              <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="ab" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
+                  <marker id="ag2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#3a4555"/></marker>
+                </defs>
+                <rect x="30" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="90" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📋 等待场控指令</text>
+                <line x1="150" y1="70" x2="195" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+                <rect x="199" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="259" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">📩 接收任务地点</text>
+                <line x1="319" y1="70" x2="364" y2="70" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+                <rect x="368" y="50" width="120" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="428" y="75" text-anchor="middle" fill="#bcc5d0" font-size="11">🏃 前往任务地点</text>
+                <line x1="428" y1="90" x2="428" y2="124" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+                <rect x="328" y="128" width="200" height="40" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+                <text x="428" y="148" text-anchor="middle" fill="#6aa8e0" font-size="11">📍 开启定位 · 划定任务圈</text>
+                <text x="428" y="162" text-anchor="middle" fill="#6aa8e0" font-size="10">发布语音+文字提示</text>
+                <line x1="428" y1="168" x2="428" y2="200" stroke="#3a4555" stroke-width="1.5" marker-end="url(#ag2)"/>
+                <rect x="328" y="204" width="200" height="40" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="428" y="229" text-anchor="middle" fill="#bcc5d0" font-size="11">🤝 接待玩家 · 报告技能</text>
+                <path d="M528 224 L580 224 L580 70 L500 70" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab)"/>
+                <text x="590" y="150" text-anchor="middle" fill="#5b9bd5" font-size="9">返回H4等待新任务</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== 督查详情页 ==================== -->
+        <div id="page-inspector" class="detail-page">
+          <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+          <div class="header"><div class="header-row"><div class="title-main">🔍 督查与回收奖励盒</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-clipboard-check"></i></div><div class="section-title">职责说明</div></div>
+            <div class="card"><table class="rule-table">
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>监督场上是否有人违规（<span class="tag-rose">违规骑车</span>、<span class="tag-rose">持续在楼内等待</span>）</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>根据场控指示（私聊）<span class="tag-amber">回收奖励盒</span> 并 <span class="tag-teal">记录回收盒子的编号</span></td></tr>
+            </table><div style="text-align:right;margin-top:4px;"><span class="muted-text" style="font-size:10px;">——你哥</span></div></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">督查流程</div></div>
+            <div class="flow-box">
+              <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="ab3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker>
+                  <marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#dc6e82"/></marker>
+                </defs>
+                <rect x="20" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="95" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">👀 巡逻监督</text>
+                <text x="95" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">违规骑车/楼内逗留</text>
+                <line x1="170" y1="102" x2="250" y2="102" stroke="#dc6e82" stroke-width="1.5" marker-end="url(#ar2)"/>
+                <text x="210" y="95" text-anchor="middle" fill="#dc6e82" font-size="9">发现违规</text>
+                <rect x="254" y="80" width="150" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="329" y="100" text-anchor="middle" fill="#bcc5d0" font-size="11">⚠️ 记录并上报</text>
+                <text x="329" y="116" text-anchor="middle" fill="#5a5a6e" font-size="10">通知场控处理</text>
+                <path d="M329 124 L329 155 L95 155 L95 134" stroke="#5b9bd5" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#ab3)"/>
+                <text x="210" y="168" text-anchor="middle" fill="#5b9bd5" font-size="9">继续巡逻</text>
+                <rect x="460" y="80" width="190" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+                <text x="555" y="100" text-anchor="middle" fill="#6aa8e0" font-size="11">📦 听从场控私聊指令</text>
+                <text x="555" y="116" text-anchor="middle" fill="#6aa8e0" font-size="10">回收奖励盒 + 记录编号</text>
+                <line x1="404" y1="102" x2="450" y2="102" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab3)"/>
+                <text x="427" y="95" text-anchor="middle" fill="#5b9bd5" font-size="9">收到指令</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== 场控详情页 ==================== -->
+        <div id="page-controller" class="detail-page">
+          <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+          <div class="header"><div class="header-row"><div class="title-main">📡 场控</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-eye"></i></div><div class="section-title">监督者</div></div>
+            <div class="card"><table class="rule-table">
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>对比玩家状态记录群中的状态提示</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-teal">接收</span> 并 <span class="tag-teal">记录</span> 场上玩家发动的技能信息</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>到时间提醒玩家</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>辅助交互场控（查看地图等）</td></tr>
+            <table></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-headset"></i></div><div class="section-title">交互</div></div>
+            <div class="card"><table class="rule-table">
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>查看私信，回复玩家</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>指挥 <span class="tag-purple">任务交互NPC</span></td></tr>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- ==================== 摄影详情页 ==================== -->
+        <div id="page-photographer" class="detail-page">
+          <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+          <div class="header"><div class="header-row"><div class="title-main">📷 摄影</div><span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span></div><div class="divider"></div></div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-camera-retro"></i></div><div class="section-title">职责说明</div></div>
+            <div class="card"><table class="rule-table"><tr><td class="td-dot"><span class="rule-dot"></span></td><td>全程记录活动现场影像资料</td></tr></table></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-tasks"></i></div><div class="section-title">工作要点</div></div>
+            <div class="card"><table class="rule-table">
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>抓拍精彩瞬间：追捕、任务交互、玩家反应</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄团队合影与活动花絮</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>注意<span class="tag-teal">不影响游戏正常进行</span>，保持适当距离</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>拍摄时<span class="tag-rose">避免使用闪光灯</span>干扰玩家</td></tr>
+              <tr><td class="td-dot"><span class="rule-dot"></span></td><td>活动结束后整理素材并<span class="tag-amber">上传至指定位置</span></td></tr>
+            </table></div>
+          </div>
+          <div class="section"><div class="section-head"><div class="section-icon"><i class="fas fa-diagram-project"></i></div><div class="section-title">拍摄流程</div></div>
+            <div class="flow-box">
+              <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg">
+                <defs><marker id="ab4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker></defs>
+                <rect x="15" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="72" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📷 活动开始</text>
+                <text x="72" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">准备设备</text>
+                <line x1="130" y1="67" x2="185" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+                <rect x="189" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="246" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">🎬 全程跟拍</text>
+                <text x="246" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">精彩瞬间+花絮</text>
+                <line x1="304" y1="67" x2="359" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+                <rect x="363" y="45" width="115" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="420" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📸 重点拍摄</text>
+                <text x="420" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">任务点+抓捕</text>
+                <line x1="478" y1="67" x2="533" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab4)"/>
+                <rect x="537" y="45" width="120" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+                <text x="597" y="65" text-anchor="middle" fill="#6aa8e0" font-size="11">📤 整理上传</text>
+                <text x="597" y="80" text-anchor="middle" fill="#6aa8e0" font-size="10">素材归档</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <!-- ==================== 积分兑换处详情页 ==================== -->
+        <div id="page-exchange" class="detail-page">
+          <div class="back-btn" onclick="showPage('page-home')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+          <div class="header">
+            <div class="header-row">
+              <div class="title-main">💰 积分兑换处</div>
+              <span class="pill"><i class="fas fa-code-branch"></i> v1.1.0</span>
+            </div>
+            <div class="divider"></div>
+          </div>
+          <div class="section">
+            <div class="section-head">
+              <div class="section-icon"><i class="fas fa-location-dot"></i></div>
+              <div class="section-title">常驻位置</div>
+            </div>
+            <div class="card">
+              <table class="rule-table">
+                <tr><td class="td-dot"><span class="rule-dot"></span></td>
+                  <td><span class="tag-teal">E9-C18 拱桥</span> · 手环-积分兑换处</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-head">
+              <div class="section-icon"><i class="fas fa-coins"></i></div>
+              <div class="section-title">工作职责</div>
+            </div>
+            <div class="card">
+              <table class="rule-table">
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td>接收玩家用抓人获得的手环兑换积分（<span class="tag">1手环 = 10积分</span>）</td></tr>
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td>记录每队/每位玩家兑换的手环数量与积分</td></tr>
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td>游戏时间结束后，组织所有人在积分兑换处集合</td></tr>
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td>协助各队伍统计总积分，核算最终获胜队伍</td></tr>
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td>发放获胜队伍奖励</td></tr>
+                <tr><td class="td-dot"><span class="rule-dot"></span></td><td><span class="tag-rose">安全区范围内禁止抓人</span>，维持现场秩序</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-head">
+              <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
+              <div class="section-title">积分兑换流程</div>
+            </div>
+            <div class="flow-box">
+              <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+                <defs><marker id="ab5" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#5b9bd5"/></marker></defs>
+                <rect x="20" y="45" width="120" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="80" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">💰 玩家提交手环</text>
+                <text x="80" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">抓人获得的手环</text>
+                <line x1="140" y1="67" x2="195" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab5)"/>
+                <rect x="200" y="45" width="120" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="260" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">📝 记录并兑换</text>
+                <text x="260" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">1手环 = 10积分</text>
+                <line x1="320" y1="67" x2="375" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab5)"/>
+                <rect x="380" y="45" width="120" height="44" rx="8" fill="#0d0d14" stroke="#1a1a26" stroke-width="1.5"/>
+                <text x="440" y="65" text-anchor="middle" fill="#bcc5d0" font-size="11">🎁 发放积分</text>
+                <text x="440" y="80" text-anchor="middle" fill="#5a5a6e" font-size="10">更新玩家状态</text>
+                <line x1="500" y1="67" x2="555" y2="67" stroke="#5b9bd5" stroke-width="1.5" marker-end="url(#ab5)"/>
+                <rect x="560" y="45" width="100" height="44" rx="8" fill="#0a1520" stroke="#5b9bd5" stroke-width="1.5"/>
+                <text x="610" y="65" text-anchor="middle" fill="#6aa8e0" font-size="11">🏆 游戏结束</text>
+                <text x="610" y="80" text-anchor="middle" fill="#6aa8e0" font-size="10">汇总结算</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="footer">
+          <span><i class="fas fa-lock"></i> 内部文档 · 仅限Staff查阅</span>
+          <span><i class="fas fa-code-branch"></i> v2.0 · 含个人任务高亮</span>
+          <span><i class="fas fa-user-shield"></i> 薛杰特</span>
+        </div>
+      `;
+    }
+
+    // 页面切换函数
+    function showPage(pageId) {
       document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      document.getElementById(pageId).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function showDetail(roleKey) {
+      const pageMap = {
+        '任务交互': 'page-npc',
+        '督查与回收': 'page-inspector',
+        '场控': 'page-controller',
+        '摄影': 'page-photographer',
+        '积分兑换处': 'page-exchange'
+      };
+      const targetPage = pageMap[roleKey];
+      if (targetPage && targetPage !== 'page-home') {
+        showPage(targetPage);
+      } else {
+        // 如果是积分兑换处或未映射，滚动到对应卡片高亮提示
+        const roleCard = document.querySelector(`.role-card .role-name:contains('${roleKey}')`);
+        if (roleCard) roleCard.closest('.role-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // 暴露全局函数
+    window.showPage = showPage;
+    window.showDetail = showDetail;
+
+    // 启动渲染
+    renderFullPage();
+
+    // ==================== 粒子动画 ====================
     (function() {
       const c = document.getElementById('particles-canvas');
+      if (!c) return;
       const ctx = c.getContext('2d');
-      let w, h, ps = [],
-        mx = -1000,
-        my = -1000,
-        tx = -1000,
-        ty = -1000;
-      const n = 60,
-        d = 100;
+      let w, h, ps = [], mx = -1000, my = -1000, tx = -1000, ty = -1000;
+      const n = 60, d = 100;
 
-      function rs() { w = innerWidth;
-        h = innerHeight;
-        c.width = w;
-        c.height = h; }
-
+      function rs() { w = innerWidth; h = innerHeight; c.width = w; c.height = h; }
       class P {
         constructor() { this.rst(); }
-        rst() { this.x = Math.random() * w;
-          this.y = Math.random() * h;
-          this.vx = (Math.random() - 0.5) * 0.3;
-          this.vy = (Math.random() - 0.5) * 0.3;
-          this.r = Math.random() * 1.2 + 0.4;
-          this.br = this.r; }
-        up() { const dx = this.x - mx,
-            dy = this.y - my,
-            ds = Math.sqrt(dx * dx + dy * dy),
-            rd = 130; if (ds < rd) { const f = (rd - ds) / rd,
-              a = Math.atan2(dy, dx);
-            this.x += Math.cos(a) * f * 1.2;
-            this.y += Math.sin(a) * f * 1.2;
-            this.r = this.br + f * 1.5; } else this.r += (this.br - this.r) * 0.08;
-          this.x += this.vx;
-          this.y += this.vy; if (this.x < -20) this.x = w + 20; if (this.x > w + 20) this.x = -20; if (this
-            .y < -20) this.y = h + 20; if (this.y > h + 20) this.y = -20; }
-        dr() { ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(91,155,213,0.35)';
-          ctx.fill(); }
+        rst() { this.x = Math.random() * w; this.y = Math.random() * h; this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3; this.r = Math.random() * 1.2 + 0.4; this.br = this.r; }
+        up() { const dx = this.x - mx, dy = this.y - my, ds = Math.sqrt(dx * dx + dy * dy), rd = 130; if (ds < rd) { const f = (rd - ds) / rd, a = Math.atan2(dy, dx); this.x += Math.cos(a) * f * 1.2; this.y += Math.sin(a) * f * 1.2; this.r = this.br + f * 1.5; } else this.r += (this.br - this.r) * 0.08; this.x += this.vx; this.y += this.vy; if (this.x < -20) this.x = w + 20; if (this.x > w + 20) this.x = -20; if (this.y < -20) this.y = h + 20; if (this.y > h + 20) this.y = -20; }
+        dr() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(91,155,213,0.35)'; ctx.fill(); }
       }
-
-      function init() { ps = [];
-        for (let i = 0; i < n; i++) ps.push(new P()); }
-
-      function lines() { for (let i = 0; i < ps.length; i++)
-          for (let j = i + 1; j < ps.length; j++) { const dx = ps[i].x - ps[j].x,
-              dy = ps[i].y - ps[j].y,
-              ds = Math.sqrt(dx * dx + dy * dy); if (ds < d) { ctx.beginPath();
-              ctx.moveTo(ps[i].x, ps[i].y);
-              ctx.lineTo(ps[j].x, ps[j].y);
-              ctx.strokeStyle = `rgba(91,155,213,${(1-ds/d)*0.18})`;
-              ctx.lineWidth = 0.3;
-              ctx.stroke(); } } }
-
-      function anim() { ctx.clearRect(0, 0, w, h);
-        mx += (tx - mx) * 0.06;
-        my += (ty - my) * 0.06;
-        ps.forEach(p => { p.up();
-          p.dr(); });
-        lines();
-        requestAnimationFrame(anim); }
-      window.addEventListener('resize', () => { rs();
-        init(); });
-      window.addEventListener('mousemove', e => { tx = e.clientX;
-        ty = e.clientY; });
-      window.addEventListener('mouseleave', () => { tx = -1000;
-        ty = -1000; });
-      rs();
-      init();
-      anim();
+      function init() { ps = []; for (let i = 0; i < n; i++) ps.push(new P()); }
+      function lines() { for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) { const dx = ps[i].x - ps[j].x, dy = ps[i].y - ps[j].y, ds = Math.sqrt(dx * dx + dy * dy); if (ds < d) { ctx.beginPath(); ctx.moveTo(ps[i].x, ps[i].y); ctx.lineTo(ps[j].x, ps[j].y); ctx.strokeStyle = `rgba(91,155,213,${(1-ds/d)*0.18})`; ctx.lineWidth = 0.3; ctx.stroke(); } } }
+      function anim() { ctx.clearRect(0, 0, w, h); mx += (tx - mx) * 0.06; my += (ty - my) * 0.06; ps.forEach(p => { p.up(); p.dr(); }); lines(); requestAnimationFrame(anim); }
+      window.addEventListener('resize', () => { rs(); init(); });
+      window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      window.addEventListener('mouseleave', () => { tx = -1000; ty = -1000; });
+      rs(); init(); anim();
     })();
   </script>
 </body>
