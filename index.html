@@ -396,13 +396,22 @@
       const input = document.getElementById('nameInput');
       const error = document.getElementById('errorMsg');
       const name = input.value.trim();
-
+    
       if (!loaded) { error.textContent = '名单尚未加载完成'; return; }
       if (!name) { error.textContent = '请输入姓名'; return; }
-
+    
       const id = checkIdentity(name);
       if (!id) { error.textContent = '姓名不在名单中'; return; }
-
+    
+      // 工作人员需要密码验证
+      if (id === 'staff' || id === 'both') {
+        const pwd = prompt('请输入工作人员密码：');
+        if (pwd !== '2026') {
+          error.textContent = '密码错误';
+          return;
+        }
+      }
+    
       error.textContent = '';
       showResult(name, id);
     }
