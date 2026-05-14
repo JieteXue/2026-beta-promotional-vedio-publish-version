@@ -2,6 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>玩家须知 · 追逐游戏手册</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -305,6 +308,27 @@
       <div class="divider"></div>
     </div>
 
+    <!-- ⚠️ 重要通知：全体玩家集合 ⚠️ -->
+    <div style="background: linear-gradient(135deg, #1a0a0e, #0d0a0f); border: 2px solid #d4a968; border-radius: 20px; padding: 16px 20px; margin: 8px 0 4px 0; text-align: center;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;">
+        <span style="font-size: 24px;">⏰</span>
+        <span style="font-size: 18px; font-weight: 800; color: #d4a968;">全体玩家注意</span>
+        <span style="font-size: 24px;">📍</span>
+      </div>
+      <div style="font-size: 20px; font-weight: 800; color: #d4a968; letter-spacing: 0.02em;">
+        5月16日 (周六) 15:00
+      </div>
+      <div style="font-size: 15px; font-weight: 500; color: #e0e0e8; margin: 6px 0;">
+        📍 H4 · Beta公共空间
+      </div>
+      <div id="player-countdown-timer" style="font-size: 28px; font-weight: 800; color: #d4a968; margin: 8px 0; font-family: monospace;">
+        --
+      </div>
+      <div style="font-size: 12px; color: #8a8a9a;">
+        请所有玩家准时到场，迟到可能影响队伍分配
+      </div>
+    </div>
+
     <div class="section">
       <div class="section-head">
         <div class="section-icon"><i class="fas fa-shield-alt"></i></div>
@@ -538,4 +562,38 @@
     })();
   </script>
 </body>
+  <script>
+    // 玩家集合倒计时
+    function updatePlayerCountdown() {
+      var target = new Date(2026, 4, 16, 15, 0, 0); // 2026年5月16日 15:00
+      var now = new Date();
+      var diff = target - now;
+      
+      var timerEl = document.getElementById('player-countdown-timer');
+      if (!timerEl) return;
+      
+      if (diff <= 0) {
+        timerEl.innerHTML = '🔥 集合时间已到 🔥';
+        return;
+      }
+      
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (86400000)) / (3600000));
+      var minutes = Math.floor((diff % 3600000) / 60000);
+      var seconds = Math.floor((diff % 60000) / 1000);
+      
+      var hoursStr = hours < 10 ? '0' + hours : '' + hours;
+      var minutesStr = minutes < 10 ? '0' + minutes : '' + minutes;
+      var secondsStr = seconds < 10 ? '0' + seconds : '' + seconds;
+      
+      var text = '';
+      if (days > 0) text = days + '天 ';
+      text += hoursStr + ':' + minutesStr + ':' + secondsStr;
+      
+      timerEl.innerHTML = text;
+    }
+    
+    updatePlayerCountdown();
+    setInterval(updatePlayerCountdown, 1000);
+  </script>
 </html>
