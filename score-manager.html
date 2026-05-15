@@ -259,13 +259,31 @@
       overflow-y: auto;
     }
     .history-item {
-      padding: 10px 12px;
+      position: relative;
+      padding: 10px 40px 10px 12px;
       border-bottom: 1px solid #1a1a26;
       font-size: 12px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       justify-content: space-between;
+    }
+    .delete-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 8px;
+      color: #5a5a6e;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .delete-icon:hover {
+      color: #dc6e82;
+      background: rgba(220,110,130,0.1);
     }
     .history-time { color: #5a5a6e; min-width: 100px; }
     .history-player { font-weight: 600; min-width: 100px; }
@@ -623,10 +641,10 @@
       // 找到要删除的记录
       const item = scoreHistory.find(h => h.id === id);
       if (!item) return;
-      
+
       // 从数组中移除
       scoreHistory = scoreHistory.filter(h => h.id !== id);
-      
+
       // 重新计算该玩家的总分（从剩余明细中重新累加）
       const playerCode = item.playerCode;
       const remainingRecords = scoreHistory.filter(h => h.playerCode === playerCode);
@@ -634,17 +652,17 @@
       for (const record of remainingRecords) {
         newTotal += record.points;
       }
-      
+
       if (playerScores[playerCode]) {
         playerScores[playerCode].totalPoints = newTotal;
         playerScores[playerCode].lastUpdate = Date.now();
       }
-      
+
       // 如果玩家没有剩余记录，删除该玩家
       if (remainingRecords.length === 0) {
         delete playerScores[playerCode];
       }
-      
+
       saveToStorage();
       renderAll();
     }
