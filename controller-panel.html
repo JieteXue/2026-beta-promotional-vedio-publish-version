@@ -438,6 +438,7 @@
   
   let timers = [];
   let timerIntervals = {};
+  let playerMapping = {};
 
   const STORAGE_KEY = 'controller_timers_v3';
 
@@ -485,6 +486,31 @@
     }
     
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+  }
+
+  async function loadPlayerMapping() {
+    try {
+      const timestamp = new Date().getTime();
+      const response = await fetch(`player-mapping.json?t=${timestamp}`);
+      if (response.ok) {
+        playerMapping = await response.json();
+        console.log('已加载编号-姓名映射:', playerMapping);
+      } else {
+        console.log('未找到 player-mapping.json，将不自动填充姓名');
+      }
+    } catch (e) {
+      console.log('加载 player-mapping.json 失败:', e);
+    }
+  }
+
+  function autoFillName() {
+    const code = document.getElementById('playerCode').value.trim().toUpperCase();
+    if (playerMapping[code]) {
+      document.getElementById('playerName').value = playerMapping[code];
+    } else {
+      // 如果编号不在映射中，可以选择清空或保留原值
+      // document.getElementById('playerName').value = '';
+    }
   }
 
   // ==================== 本地存储 ====================
@@ -797,6 +823,8 @@
     exportData();
   });
   
+  document.getElementById('playerCode').addEventListener('blur', autoFillName);
+  
   const inputIds = ['playerCode', 'playerName', 'skillName', 'durationSec'];
   inputIds.forEach(id => {
     document.getElementById(id).addEventListener('keypress', (e) => {
@@ -825,6 +853,7 @@
   }, { once: true });
   
   loadFromStorage();
+  loadPlayerMapping();
 </script>
 </body>
 </html>
