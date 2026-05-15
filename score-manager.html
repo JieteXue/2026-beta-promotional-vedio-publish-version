@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>积分管理系统 · 场控面板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #050508;
+      font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+      color: #e0e0e8;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1a1a26;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #d4a968;
+    }
+    .title i {
+      margin-right: 8px;
+    }
+    .badge {
+      background: #0d0d14;
+      border: 1px solid #1a1a26;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #8a8a9a;
+    }
+
+    .form-section {
+      background: #0d0d14;
+      border: 1px solid #1a1a26;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .form-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #d4a968;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      flex: 1;
+      min-width: 140px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      color: #8a8a9a;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-group input {
+      width: 100%;
+      background: #08080f;
+      border: 1px solid #1c1c2a;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #e0e0e8;
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: #d4a968;
+      box-shadow: 0 0 0 3px rgba(212,169,104,0.1);
+    }
+    .form-group input:read-only {
+      background: #0a0a12;
+      color: #8a8a9a;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: #d4a968;
+      color: #050508;
+    }
+    .btn-primary:hover {
+      background: #c49858;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #1a1a26;
+      color: #b0b9c4;
+      border: 1px solid #252536;
+    }
+    .btn-secondary:hover {
+      background: #252536;
+    }
+    .btn-danger {
+      background: #dc6e82;
+      color: #050508;
+    }
+    .btn-danger:hover {
+      background: #c45a6e;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .rank-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .rank-tab {
+      background: #0d0d14;
+      border: 1px solid #1a1a26;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .rank-tab.active {
+      background: #d4a968;
+      border-color: #d4a968;
+      color: #050508;
+    }
+    .rank-tab:hover:not(.active) {
+      border-color: #d4a968;
+    }
+
+    .team-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .team-card {
+      border-radius: 16px;
+      padding: 16px;
+      transition: all 0.2s;
+    }
+    .team-card.team-A { background: rgba(91, 155, 213, 0.1); border: 1px solid rgba(91, 155, 213, 0.3); }
+    .team-card.team-B { background: rgba(90, 200, 130, 0.1); border: 1px solid rgba(90, 200, 130, 0.3); }
+    .team-card.team-C { background: rgba(220, 169, 104, 0.1); border: 1px solid rgba(220, 169, 104, 0.3); }
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .team-A .team-header { color: #5b9bd5; }
+    .team-B .team-header { color: #5ac882; }
+    .team-C .team-header { color: #d4a968; }
+    .team-score {
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .team-members {
+      font-size: 12px;
+      color: #b0b9c4;
+      line-height: 1.6;
+    }
+
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #0d0d14;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .rank-table th, .rank-table td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid #1a1a26;
+      font-size: 13px;
+    }
+    .rank-table th {
+      background: #08080f;
+      color: #d4a968;
+      font-weight: 600;
+    }
+    .rank-table tr:last-child td {
+      border-bottom: none;
+    }
+    .rank-table .team-A-row { border-left: 3px solid #5b9bd5; }
+    .rank-table .team-B-row { border-left: 3px solid #5ac882; }
+    .rank-table .team-C-row { border-left: 3px solid #d4a968; }
+
+    .history-section {
+      margin-top: 24px;
+      background: #0d0d14;
+      border: 1px solid #1a1a26;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .history-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .history-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid #1a1a26;
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .history-time { color: #5a5a6e; min-width: 100px; }
+    .history-player { font-weight: 600; min-width: 100px; }
+    .history-reason { color: #d4a968; min-width: 80px; }
+    .history-points { font-weight: 600; }
+    .history-points.plus { color: #5ac882; }
+    .history-points.minus { color: #dc6e82; }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #5a5a6e;
+    }
+
+    @media (max-width: 900px) {
+      .team-cards { grid-template-columns: 1fr; }
+      .rank-table th, .rank-table td { padding: 8px 6px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="title">
+      <i class="fas fa-coins"></i> 积分管理系统
+    </div>
+    <div class="badge">
+      <i class="fas fa-database"></i> 本地缓存已启用
+    </div>
+  </div>
+
+  <!-- 积分录入表单 -->
+  <div class="form-section">
+    <div class="form-title">
+      <i class="fas fa-plus-circle"></i> 积分变动记录
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>玩家编号</label>
+        <input type="text" id="playerCode" placeholder="例: A2" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>玩家姓名</label>
+        <input type="text" id="playerName" placeholder="自动填充" readonly>
+      </div>
+      <div class="form-group">
+        <label>变动原因</label>
+        <input type="text" id="reasonInput" placeholder="例: 抓捕手环、完成任务、违规..." autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>积分变动</label>
+        <input type="number" id="pointsChange" value="10" step="1" placeholder="例: 10 或 -5">
+      </div>
+      <div class="form-group" style="flex: 0.5; min-width: auto;">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary" id="submitBtn" style="width: 100%;">
+          <i class="fas fa-save"></i> 确认变动
+        </button>
+      </div>
+    </div>
+    <div style="font-size: 11px; color: #5a5a6e; margin-top: 8px;">
+      <i class="fas fa-info-circle"></i> 根据编号首位字母自动分配队伍（A/B/C），初始积分0分
+    </div>
+  </div>
+
+  <!-- 操作按钮 -->
+  <div class="action-buttons">
+    <button class="btn btn-secondary" id="exportDataBtn">
+      <i class="fas fa-download"></i> 导出积分数据
+    </button>
+    <button class="btn btn-danger" id="clearAllBtn">
+      <i class="fas fa-trash-alt"></i> 清空所有数据
+    </button>
+  </div>
+
+  <!-- 排名切换 -->
+  <div class="rank-tabs">
+    <div class="rank-tab active" data-rank="team">🏆 队伍排名</div>
+    <div class="rank-tab" data-rank="player">👤 个人排名</div>
+  </div>
+
+  <!-- 队伍卡片区域 -->
+  <div id="teamRankView">
+    <div class="team-cards" id="teamCards"></div>
+  </div>
+
+  <!-- 个人排名表格 -->
+  <div id="playerRankView" style="display: none;">
+    <table class="rank-table" id="playerRankTable">
+      <thead>
+        <tr><th>排名</th><th>编号</th><th>姓名</th><th>队伍</th><th>积分</th><th>最后变动</th></tr>
+      </thead>
+      <tbody id="playerRankBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 积分变动明细 -->
+  <div class="history-section">
+    <div class="history-header">
+      <h3 style="font-size: 14px; color:#d4a968;"><i class="fas fa-history"></i> 积分变动明细</h3>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="empty-state">暂无积分变动记录</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ==================== 数据存储 ====================
+  let playerScores = {};      // { "A2": { name, team, totalPoints, lastUpdate } }
+  let scoreHistory = [];       // 积分变动明细
+  let playerMapping = {};      // 编号-姓名映射
+  let currentRankView = 'team';
+
+  const STORAGE_KEY_SCORES = 'score_manager_players';
+  const STORAGE_KEY_HISTORY = 'score_manager_history';
+
+  // ==================== 加载/保存本地存储 ====================
+  function loadFromStorage() {
+    const savedPlayers = localStorage.getItem(STORAGE_KEY_SCORES);
+    if (savedPlayers) {
+      try {
+        playerScores = JSON.parse(savedPlayers);
+        console.log('已加载玩家积分:', Object.keys(playerScores).length);
+      } catch(e) {}
+    }
+    
+    const savedHistory = localStorage.getItem(STORAGE_KEY_HISTORY);
+    if (savedHistory) {
+      try {
+        scoreHistory = JSON.parse(savedHistory);
+        console.log('已加载明细:', scoreHistory.length);
+      } catch(e) {}
+    }
+    renderAll();
+  }
+
+  function saveToStorage() {
+    localStorage.setItem(STORAGE_KEY_SCORES, JSON.stringify(playerScores));
+    localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(scoreHistory));
+  }
+
+  // ==================== 加载编号-姓名映射 ====================
+  async function loadPlayerMapping() {
+    try {
+      const timestamp = new Date().getTime();
+      const response = await fetch(`player-mapping.json?t=${timestamp}`);
+      if (response.ok) {
+        playerMapping = await response.json();
+        console.log('已加载编号-姓名映射:', playerMapping);
+      } else {
+        console.log('未找到 player-mapping.json，请手动输入姓名');
+      }
+    } catch (e) {
+      console.log('加载 player-mapping.json 失败:', e);
+    }
+  }
+
+  function autoFillName() {
+    const code = document.getElementById('playerCode').value.trim().toUpperCase();
+    if (playerMapping[code]) {
+      document.getElementById('playerName').value = playerMapping[code];
+    } else {
+      document.getElementById('playerName').value = '';
+    }
+  }
+
+  // ==================== 辅助函数 ====================
+  function getTeamFromCode(code) {
+    const firstChar = code.charAt(0).toUpperCase();
+    if (firstChar === 'A') return 'A';
+    if (firstChar === 'B') return 'B';
+    if (firstChar === 'C') return 'C';
+    return '?';
+  }
+
+  function formatTimestamp(ts) {
+    if (!ts) return '';
+    const d = new Date(ts);
+    return `${d.getMonth()+1}/${d.getDate()} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}`;
+  }
+
+  // ==================== 积分变动 ====================
+  function addScoreChange(playerCode, playerName, reason, pointsChange) {
+    playerCode = playerCode.trim().toUpperCase();
+    if (!playerCode) {
+      alert('请输入玩家编号');
+      return false;
+    }
+    
+    const team = getTeamFromCode(playerCode);
+    if (team === '?') {
+      alert('编号格式错误，请以 A/B/C 开头，如 A2、C5');
+      return false;
+    }
+    
+    // 获取或初始化玩家数据
+    if (!playerScores[playerCode]) {
+      playerScores[playerCode] = {
+        name: playerName || playerMapping[playerCode] || '',
+        team: team,
+        totalPoints: 0,
+        lastUpdate: Date.now()
+      };
+    }
+    
+    const currentTotal = playerScores[playerCode].totalPoints;
+    const newTotal = currentTotal + pointsChange;
+    
+    // 更新玩家积分
+    playerScores[playerCode].totalPoints = newTotal;
+    playerScores[playerCode].lastUpdate = Date.now();
+    if (playerName && !playerScores[playerCode].name) {
+      playerScores[playerCode].name = playerName;
+    }
+    
+    // 记录明细
+    const historyItem = {
+      id: Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+      playerCode: playerCode,
+      playerName: playerScores[playerCode].name || playerCode,
+      team: team,
+      reason: reason,
+      points: pointsChange,
+      totalAfter: newTotal,
+      createdAt: Date.now()
+    };
+    scoreHistory.unshift(historyItem);
+    
+    saveToStorage();
+    renderAll();
+    return true;
+  }
+
+  // ==================== 清空所有数据 ====================
+  function clearAllData() {
+    if (confirm('⚠️ 确定要清空所有积分数据吗？此操作不可恢复！')) {
+      playerScores = {};
+      scoreHistory = [];
+      saveToStorage();
+      renderAll();
+    }
+  }
+
+  // ==================== 导出数据 ====================
+  function exportData() {
+    const playersExport = Object.entries(playerScores).map(([code, data]) => ({
+      编号: code,
+      姓名: data.name,
+      队伍: data.team,
+      总积分: data.totalPoints,
+      最后更新时间: formatTimestamp(data.lastUpdate)
+    }));
+    
+    const historyExport = scoreHistory.map(h => ({
+      时间: formatTimestamp(h.createdAt),
+      玩家编号: h.playerCode,
+      玩家姓名: h.playerName,
+      队伍: h.team,
+      变动原因: h.reason,
+      积分变动: h.points,
+      变动后总分: h.totalAfter
+    }));
+    
+    const exportObj = {
+      导出时间: new Date().toLocaleString('zh-CN'),
+      玩家积分汇总: playersExport,
+      积分变动明细: historyExport
+    };
+    
+    const dataStr = JSON.stringify(exportObj, null, 2);
+    const blob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `积分数据_${new Date().toISOString().slice(0,19)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // ==================== 渲染 ====================
+  function renderTeamCards() {
+    const teamTotals = { A: 0, B: 0, C: 0 };
+    const teamMembers = { A: [], B: [], C: [] };
+    
+    for (const [code, data] of Object.entries(playerScores)) {
+      const team = data.team;
+      if (teamTotals[team] !== undefined) {
+        teamTotals[team] += data.totalPoints;
+        teamMembers[team].push({ code, name: data.name || code, points: data.totalPoints });
+      }
+    }
+    
+    for (const team of ['A', 'B', 'C']) {
+      teamMembers[team].sort((a, b) => b.points - a.points);
+    }
+    
+    const teamNames = { A: 'A队', B: 'B队', C: 'C队' };
+    const teamIcons = { A: '🔵', B: '🟢', C: '🟠' };
+    
+    const container = document.getElementById('teamCards');
+    container.innerHTML = ['A', 'B', 'C'].map(team => `
+      <div class="team-card team-${team}">
+        <div class="team-header">
+          <span>${teamIcons[team]} ${teamNames[team]}</span>
+          <span class="team-score">${teamTotals[team]} 分</span>
+        </div>
+        <div class="team-members">
+          ${teamMembers[team].length > 0 ? 
+            teamMembers[team].map(m => `${m.code} ${m.name} (${m.points}分)`).join('<br>') : 
+            '<span style="color:#5a5a6e;">暂无成员</span>'}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderPlayerRank() {
+    const players = Object.entries(playerScores).map(([code, data]) => ({
+      code: code,
+      name: data.name || code,
+      team: data.team,
+      points: data.totalPoints,
+      lastUpdate: data.lastUpdate
+    }));
+    players.sort((a, b) => b.points - a.points);
+    
+    const tbody = document.getElementById('playerRankBody');
+    if (players.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#5a5a6e;">暂无数据</td></tr>';
+      return;
+    }
+    
+    tbody.innerHTML = players.map((p, idx) => {
+      let teamClass = '';
+      if (p.team === 'A') teamClass = 'team-A-row';
+      if (p.team === 'B') teamClass = 'team-B-row';
+      if (p.team === 'C') teamClass = 'team-C-row';
+      return `
+        <tr class="${teamClass}">
+          <td>${idx + 1}</td>
+          <td>${escapeHtml(p.code)}</td>
+          <td>${escapeHtml(p.name)}</td>
+          <td>${p.team}队</td>
+          <td style="font-weight:600; color:#d4a968;">${p.points}</td>
+          <td>${p.lastUpdate ? formatTimestamp(p.lastUpdate) : '-'}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('historyList');
+    if (scoreHistory.length === 0) {
+      container.innerHTML = '<div class="empty-state">暂无积分变动记录</div>';
+      return;
+    }
+    
+    container.innerHTML = scoreHistory.slice(0, 100).map(h => `
+      <div class="history-item">
+        <span class="history-time">${formatTimestamp(h.createdAt)}</span>
+        <span class="history-player">${escapeHtml(h.playerCode)} ${escapeHtml(h.playerName)} (${h.team}队)</span>
+        <span class="history-reason">${escapeHtml(h.reason)}</span>
+        <span class="history-points ${h.points >= 0 ? 'plus' : 'minus'}">${h.points >= 0 ? '+' : ''}${h.points}</span>
+        <span style="color:#5a5a6e;">→ ${h.totalAfter}分</span>
+      </div>
+    `).join('');
+  }
+
+  function renderAll() {
+    renderTeamCards();
+    renderPlayerRank();
+    renderHistory();
+    
+    const teamView = document.getElementById('teamRankView');
+    const playerView = document.getElementById('playerRankView');
+    if (currentRankView === 'team') {
+      teamView.style.display = 'block';
+      playerView.style.display = 'none';
+    } else {
+      teamView.style.display = 'none';
+      playerView.style.display = 'block';
+    }
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  // ==================== 事件绑定 ====================
+  function initEventListeners() {
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const playerCode = document.getElementById('playerCode').value;
+      const playerName = document.getElementById('playerName').value;
+      const reason = document.getElementById('reasonInput').value.trim();
+      const pointsChange = parseInt(document.getElementById('pointsChange').value);
+      
+      if (!playerCode) {
+        alert('请输入玩家编号');
+        return;
+      }
+      if (!reason) {
+        alert('请输入变动原因');
+        return;
+      }
+      if (isNaN(pointsChange)) {
+        alert('请输入有效的积分变动数值');
+        return;
+      }
+      
+      if (addScoreChange(playerCode, playerName, reason, pointsChange)) {
+        document.getElementById('playerCode').value = '';
+        document.getElementById('playerName').value = '';
+        document.getElementById('reasonInput').value = '';
+        document.getElementById('pointsChange').value = '10';
+        document.getElementById('playerCode').focus();
+      }
+    });
+    
+    document.getElementById('exportDataBtn').addEventListener('click', exportData);
+    document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+    
+    document.getElementById('playerCode').addEventListener('blur', autoFillName);
+    document.getElementById('playerCode').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('submitBtn').click();
+    });
+    document.getElementById('reasonInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('submitBtn').click();
+    });
+    document.getElementById('pointsChange').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('submitBtn').click();
+    });
+    
+    // 排名切换
+    document.querySelectorAll('.rank-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.rank-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentRankView = tab.dataset.rank;
+        renderAll();
+      });
+    });
+  }
+
+  // ==================== 初始化 ====================
+  async function init() {
+    await loadPlayerMapping();
+    loadFromStorage();
+    initEventListeners();
+    
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  }
+  
+  init();
+</script>
+</body>
+</html>
