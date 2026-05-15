@@ -617,15 +617,51 @@
     }).join('');
   }
 
+  // 删除单条积分明细
+  function deleteHistoryItem(id) {
+    if (confirm('确定要删除这条积分变动记录吗？')) {
+      // 找到要删除的记录
+      const item = scoreHistory.find(h => h.id === id);
+      if (!item) return;
+      
+      // 从数组中移除
+      scoreHistory = scoreHistory.filter(h => h.id !== id);
+      
+      // 重新计算该玩家的总分（从剩余明细中重新累加）
+      const playerCode = item.playerCode;
+      const remainingRecords = scoreHistory.filter(h => h.playerCode === playerCode);
+      let newTotal = 0;
+      for (const record of remainingRecords) {
+        newTotal += record.points;
+      }
+      
+      if (playerScores[playerCode]) {
+        playerScores[playerCode].totalPoints = newTotal;
+        playerScores[playerCode].lastUpdate = Date.now();
+      }
+      
+      // 如果玩家没有剩余记录，删除该玩家
+      if (remainingRecords.length === 0) {
+        delete playerScores[playerCode];
+      }
+      
+      saveToStorage();
+      renderAll();
+    }
+  }
+
   function renderHistory() {
     const container = document.getElementById('historyList');
     if (scoreHistory.length === 0) {
       container.innerHTML = '<div class="empty-state">暂无积分变动记录</div>';
       return;
     }
-    
+
     container.innerHTML = scoreHistory.slice(0, 100).map(h => `
-      <div class="history-item">
+      <div class="history-item" style="position: relative;">
+        <div class="delete-icon" onclick="deleteHistoryItem('${h.id}')" style="position: absolute; top: 8px; right: 12px; color: #5a5a6e; cursor: pointer; font-size: 12px; padding: 4px 6px; border-radius: 4px;">
+          <i class="fas fa-times"></i>
+        </div>
         <span class="history-time">${formatTimestamp(h.createdAt)}</span>
         <span class="history-player">${escapeHtml(h.playerCode)} ${escapeHtml(h.playerName)} (${h.team}队)</span>
         <span class="history-reason">${escapeHtml(h.reason)}</span>
